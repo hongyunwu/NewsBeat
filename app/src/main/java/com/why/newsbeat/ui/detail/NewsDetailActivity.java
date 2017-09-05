@@ -1,8 +1,12 @@
 package com.why.newsbeat.ui.detail;
 
+import android.view.View;
+
+import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.why.base.ui.BaseActivity;
+import com.why.base.utils.LogUtils;
 import com.why.newsbeat.R;
 
 public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> {
@@ -28,9 +32,23 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> {
 		viewHolder.news_detail.setWebViewClient(new WebViewClient(){
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView webView, String url) {
-
 				viewHolder.news_detail.loadUrl(url);
 				return true;
+			}
+		});
+		viewHolder.news_detail.setWebChromeClient(new WebChromeClient(){
+
+
+			@Override
+			public void onProgressChanged(WebView webView, int progress) {
+				if (progress==100){
+					viewHolder.progress.setVisibility(View.GONE);
+				}else {
+					viewHolder.progress.setProgress(progress);
+				}
+
+				LogUtils.i("onProgressChanged:"+progress);
+				super.onProgressChanged(webView, progress);
 			}
 		});
 	}

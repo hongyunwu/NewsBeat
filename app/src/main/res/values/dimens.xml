@@ -15,4 +15,5 @@
     <dimen name="item_author_margin_left">25dp</dimen>
     <dimen name="content_pic_margin">8dp</dimen>
     <dimen name="line_height">1dp</dimen>
+    <dimen name="horizontal_progress_height">3dp</dimen>
 </resources>

@@ -1,6 +1,7 @@
 package com.why.newsbeat.ui.detail;
 
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.tencent.smtt.sdk.WebView;
 import com.why.base.ui.BaseHolder;
@@ -13,6 +14,8 @@ import butterknife.BindView;
  */
 public class NewsDetailViewHolder extends BaseHolder{
 
+	@BindView(R.id.progress)
+	ProgressBar progress;
 	@BindView(R.id.news_detail)
 	WebView news_detail;
 	/**
