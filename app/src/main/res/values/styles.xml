@@ -1,0 +1,33 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:divider">@drawable/list_divider</item>
+    </style>
+    <style name="ToolBarStyle" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorControlNormal">@color/color_white</item>
+        <item name="android:textColorSecondary">@color/color_white</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ToolBarPopupStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/color_white</item>
+        <item name="actionOverflowMenuStyle">@style/ToolBarMenuStyle</item>
+    </style>
+
+    <style name="ToolBarMenuStyle" parent="Widget.AppCompat.PopupMenu.Overflow">
+
+        <item name="overlapAnchor">false</item>
+    </style>
+
+    <style name="TabTextStyle">
+        <item name="android:textSize">@dimen/tab_text_size</item>
+    </style>
+
+
+</resources>
