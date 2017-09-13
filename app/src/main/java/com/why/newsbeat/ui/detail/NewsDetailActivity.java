@@ -1,5 +1,6 @@
 package com.why.newsbeat.ui.detail;
 
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -7,15 +8,41 @@ import android.view.View;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.why.base.ui.BaseActivity;
 import com.why.base.utils.LogUtils;
 import com.why.newsbeat.R;
 import com.why.newsbeat.base.detail.DetailApi;
+import com.why.newsbeat.ui.detail.comments.CommentsFragment;
 
 public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> implements View.OnClickListener {
 
 
 	private DetailApi detailApi;
+	private UMShareListener umShareListener = new UMShareListener() {
+		@Override
+		public void onStart(SHARE_MEDIA share_media) {
+			LogUtils.i("onStart->"+share_media);
+		}
+
+		@Override
+		public void onResult(SHARE_MEDIA share_media) {
+			LogUtils.i("onResult->"+share_media);
+		}
+
+		@Override
+		public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+			LogUtils.i("onError->"+share_media+",error->"+throwable.getMessage());
+		}
+
+		@Override
+		public void onCancel(SHARE_MEDIA share_media) {
+			LogUtils.i("onCancel->"+share_media);
+		}
+	};
 
 	@Override
 	public int getLayoutID() {
@@ -59,6 +86,17 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 				switch (item.getItemId()){
 					case R.id.share:
 						LogUtils.i("onMenuItemClick->share");
+						//UMShareAPI.get(NewsDetailActivity.this).getPlatformInfo(this, S, authListener);
+						new ShareAction(NewsDetailActivity.this)
+								.withText("hello")
+								.setDisplayList(SHARE_MEDIA.SINA
+										,SHARE_MEDIA.QQ
+										,SHARE_MEDIA.WEIXIN
+										,SHARE_MEDIA.WEIXIN_CIRCLE
+										,SHARE_MEDIA.WEIXIN_FAVORITE
+								)
+								.setCallback(umShareListener)
+								.open();
 						break;
 					case R.id.collect:
 						LogUtils.i("onMenuItemClick->collect");
@@ -71,6 +109,12 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 			}
 		});
 		viewHolder.write_comments.setOnClickListener(this);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
 	}
 
 	private void initWebView() {
@@ -134,6 +178,7 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 	@Override
 	protected void onDestroy() {
 		viewHolder.news_detail.destroy();
+		UMShareAPI.get(this).release();
 		super.onDestroy();
 
 	}

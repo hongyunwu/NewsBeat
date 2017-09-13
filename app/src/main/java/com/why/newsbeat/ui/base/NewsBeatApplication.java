@@ -12,6 +12,12 @@ import java.util.Map;
  */
 
 public class NewsBeatApplication extends BaseApplication {
+
+	/**
+	 * PlatformConfig.setWeixin("4155444921","a8d7372b73d6d5dae7a9e90f43fc8115");
+	 PlatformConfig.setQQZone("1106338049","7NVp0yRpmGavdBB6");
+	 PlatformConfig.setSinaWeibo("4155444921","a8d7372b73d6d5dae7a9e90f43fc8115","");
+	 */
 	@Override
 	public void onCreate() {
 		super.onCreate();

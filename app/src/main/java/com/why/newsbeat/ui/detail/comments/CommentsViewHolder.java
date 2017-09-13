@@ -1,4 +1,4 @@
-package com.why.newsbeat.ui.detail;
+package com.why.newsbeat.ui.detail.comments;
 
 import android.view.View;
 import android.widget.Button;

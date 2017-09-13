@@ -1,4 +1,4 @@
-package com.why.newsbeat.ui.detail;
+package com.why.newsbeat.ui.detail.comments;
 
 import android.text.Editable;
 import android.text.TextWatcher;
