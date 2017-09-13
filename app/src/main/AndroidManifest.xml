@@ -23,7 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.detail.NewsDetailActivity">
+        <activity android:name=".ui.detail.NewsDetailActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTop">
         </activity>
     </application>
 

@@ -3,6 +3,7 @@ package com.why.base.ui;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -25,8 +26,8 @@ import java.lang.reflect.ParameterizedType;
  * Created by lenovo on 2017/9/13.
  */
 
-public abstract class BaseDialogFragment<T extends BaseHolder> extends DialogFragment {
-	protected Handler mHandler = new Handler(Looper.getMainLooper());
+public abstract class BaseDialogFragment<T extends BaseHolder> extends DialogFragment implements Handler.Callback {
+	protected Handler mHandler = new Handler(Looper.getMainLooper(),this);
 
 	private View contentView;
 	protected T viewHolder;
@@ -107,4 +108,8 @@ public abstract class BaseDialogFragment<T extends BaseHolder> extends DialogFra
 
 	}
 
+	@Override
+	public boolean handleMessage(Message msg) {
+		return true;
+	}
 }

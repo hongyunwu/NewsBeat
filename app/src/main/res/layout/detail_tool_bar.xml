@@ -42,6 +42,7 @@
         <Button
             android:layout_width="@dimen/detail_follow_width"
             android:layout_height="@dimen/detail_follow_height"
+            style="?android:attr/borderlessButtonStyle"
             android:background="@drawable/follow_btn_selector"
             android:drawableLeft="@drawable/add_follow"
             android:gravity="center"

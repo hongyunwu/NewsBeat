@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,10 +28,10 @@ import java.lang.reflect.ParameterizedType;
  * Created by wuhongyun on 17-7-17.
  */
 @BaseUI
-public abstract class BaseActivity<T extends BaseHolder> extends AppCompatActivity {
+public abstract class BaseActivity<T extends BaseHolder> extends AppCompatActivity implements Handler.Callback {
 
 
-    protected Handler mHandler = new Handler(Looper.getMainLooper());
+    protected Handler mHandler = new Handler(Looper.getMainLooper(),this);
     protected T viewHolder;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -222,5 +223,11 @@ public abstract class BaseActivity<T extends BaseHolder> extends AppCompatActivi
      */
     public int getMenuId() {
         return 0;
+    }
+
+    @Override
+    public boolean handleMessage(Message msg) {
+
+        return true;
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,9 +29,9 @@ import java.lang.reflect.ParameterizedType;
  * Created by wuhongyun on 17-7-17.
  */
 @BaseUI
-public abstract class BaseFragment<T extends BaseHolder> extends Fragment {
-    
-    protected Handler mHandler = new Handler(Looper.getMainLooper());
+public abstract class BaseFragment<T extends BaseHolder> extends Fragment implements Handler.Callback {
+
+    protected Handler mHandler = new Handler(Looper.getMainLooper(),this);
     protected T viewHolder;
     private View contentView;
 
@@ -168,4 +169,8 @@ public abstract class BaseFragment<T extends BaseHolder> extends Fragment {
         }
     }
 
+    @Override
+    public boolean handleMessage(Message msg) {
+        return true;
+    }
 }

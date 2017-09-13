@@ -2,6 +2,7 @@ package com.why.newsbeat.ui.detail;
 
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.why.base.ui.BaseDialogFragment;
@@ -11,7 +12,7 @@ import com.why.newsbeat.R;
  * Created by lenovo on 2017/9/13.
  */
 
-public class CommentsFragment extends BaseDialogFragment<CommentsViewHolder> {
+public class CommentsFragment extends BaseDialogFragment<CommentsViewHolder> implements View.OnClickListener {
 
 
 	@Override
@@ -43,7 +44,7 @@ public class CommentsFragment extends BaseDialogFragment<CommentsViewHolder> {
 				viewHolder.send_comments.setEnabled(!TextUtils.isEmpty(s));
 			}
 		});
-
+		viewHolder.setListeners(this,viewHolder.send_comments);
 	}
 
 	@Override
@@ -52,5 +53,15 @@ public class CommentsFragment extends BaseDialogFragment<CommentsViewHolder> {
 	}
 
 
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()){
+			case R.id.send_comments:
+				dismiss();
+				break;
 
+			default:
+				break;
+		}
+	}
 }
