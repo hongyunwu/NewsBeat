@@ -3,6 +3,8 @@ package com.why.newsbeat.base.caijing.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.why.newsbeat.base.detail.DetailApi;
+
 import java.util.List;
 
 /**
@@ -70,7 +72,7 @@ public class CaiJingBean {
 			this.data = data;
 		}
 
-		public static class DataBean implements Parcelable{
+		public static class DataBean implements Parcelable,DetailApi {
 			/**
 			 * uniquekey : c8711ffee9cb835360382c81fac47922
 			 * title : 美军亮出了这个星球上破坏力最强的武器 只为威慑这个国家

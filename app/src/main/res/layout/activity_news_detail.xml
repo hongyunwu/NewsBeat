@@ -3,13 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_news_detail"
     android:layout_width="match_parent"
+    android:background="@color/color_white"
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
 
     <include
         android:id="@+id/tool_bar"
-        layout="@layout/tool_bar"/>
+        layout="@layout/detail_tool_bar"/>
 
     <ProgressBar
         style="@style/ProgressBarHorizontalStyle"
@@ -19,12 +20,21 @@
         android:id="@+id/progress"
         android:visibility="visible"
         android:progress="0"/>
-
-    <com.tencent.smtt.sdk.WebView
-        android:id="@+id/news_detail"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.tencent.smtt.sdk.WebView
+            android:id="@+id/news_detail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/width_0"
+            android:layout_weight="@integer/weight_1">
+        </com.tencent.smtt.sdk.WebView>
 
-    </com.tencent.smtt.sdk.WebView>
+        <include layout="@layout/comments_tool_bar"/>
+    </LinearLayout>
+
+
+
 
 </LinearLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/color_white"
+              android:paddingLeft="@dimen/page_horizontal"
+              android:paddingRight="@dimen/page_horizontal"
+              android:paddingTop="@dimen/page_horizontal"
+              android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/comments_edit_height"
+        android:textSize="@dimen/write_comments_text_size"
+        android:background="@drawable/comments_edit_shape"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:id="@+id/comments_content"
+        android:gravity="start|top"
+        android:textColor="@color/color_black"
+        android:hint="@string/write_comments"
+        android:textColorHint="@color/tab_text_color"
+        android:padding="@dimen/comments_send_margin"
+        />
+
+    <Button
+        android:layout_width="@dimen/detail_follow_width"
+        android:layout_height="@dimen/detail_follow_height"
+        android:layout_gravity="end"
+        android:text="@string/send"
+        android:enabled="false"
+        android:id="@+id/send_comments"
+        android:layout_marginBottom="@dimen/comments_send_margin"
+        android:layout_marginTop="@dimen/comments_send_margin"
+        android:textSize="@dimen/write_comments_text_size"
+        android:textColor="@color/comments_send_selector"
+        android:background="@drawable/comments_send_selector"/>
+
+</LinearLayout>

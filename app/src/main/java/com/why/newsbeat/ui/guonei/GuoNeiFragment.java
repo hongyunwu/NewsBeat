@@ -60,7 +60,7 @@ public class GuoNeiFragment extends BaseFragment<GuoNeiViewHolder> {
 			@Override
 			public void onItemClick(int position, GuoNeiBean.ResultBean.DataBean dataBean) {
 				Bundle bundle = new Bundle();
-				bundle.putString("news",dataBean.getUrl());
+				bundle.putParcelable("news",dataBean);
 				gotoSubActivity(NewsDetailActivity.class,bundle,false);
 			}
 		});

@@ -61,7 +61,7 @@ public class TiYuFragment extends BaseFragment<TiYuViewHolder> {
 			@Override
 			public void onItemClick(int position, TiYuBean.ResultBean.DataBean dataBean) {
 				Bundle bundle = new Bundle();
-				bundle.putString("news",dataBean.getUrl());
+				bundle.putParcelable("news",dataBean);
 				gotoSubActivity(NewsDetailActivity.class,bundle,false);
 			}
 		});

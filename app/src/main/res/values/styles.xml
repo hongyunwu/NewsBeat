@@ -6,6 +6,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:divider">@drawable/list_divider</item>
     </style>
+
     <style name="ToolBarStyle" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="colorControlNormal">@color/color_white</item>
@@ -15,8 +16,30 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DetailToolBarStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/tab_text_color</item>
+        <item name="android:textColorSecondary">@color/tab_text_color</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="CommentsToolBarStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/tab_text_color</item>
+        <item name="android:textColorSecondary">@color/tab_text_color</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
     <style name="ToolBarPopupStyle" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:colorBackground">@color/color_white</item>
+        <item name="actionOverflowMenuStyle">@style/ToolBarMenuStyle</item>
+    </style>
+    <style name="DetailToolBarPopupStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/tab_bg_color</item>
+        <item name="actionOverflowMenuStyle">@style/ToolBarMenuStyle</item>
+    </style>
+    <style name="CommentsToolBarPopupStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/tab_bg_color</item>
         <item name="actionOverflowMenuStyle">@style/ToolBarMenuStyle</item>
     </style>
 
@@ -31,11 +54,24 @@
 
     <style name="ProgressBarHorizontalStyle">
         <item name="android:indeterminateOnly">false</item>
-        <item name="android:progressDrawable">@drawable/progress_horizontal_selector</item>
-        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:progressDrawable">
+            @drawable/progress_horizontal_selector
+        </item>
+        <item name="android:indeterminateDrawable">
+            @android:drawable/progress_indeterminate_horizontal
+        </item>
         <item name="android:minHeight">3dp</item>
         <item name="android:maxHeight">20dip</item>
     </style>
 
-
+    <style name="CommentsDialogStyle" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>

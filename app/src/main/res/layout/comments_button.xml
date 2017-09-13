@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/write_comments"
+    style="?android:attr/borderlessButtonStyle"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/detail_comment_btn_height"
+    android:background="@drawable/detail_comment_shape"
+    android:elevation="@dimen/width_0"
+    android:gravity="start|center_vertical"
+    android:paddingLeft="@dimen/detail_comment_btn_padding_left"
+    android:text="@string/write_comments"
+    android:textSize="@dimen/write_comments_text_size"
+    android:textColor="@color/tab_text_color"/>

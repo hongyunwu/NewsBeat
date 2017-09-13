@@ -34,7 +34,7 @@ public class CaiJingViewAdapter extends RecyclerView.Adapter<CaiJingItemViewHold
 	public int getItemViewType(int position) {
 		CaiJingBean.ResultBean.DataBean dataBean = mData.get(position);
 		if (TextUtils.isEmpty(dataBean.getThumbnail_pic_s02())
-				&& TextUtils.isEmpty(dataBean.getThumbnail_pic_s03())) {
+				|| TextUtils.isEmpty(dataBean.getThumbnail_pic_s03())) {
 			return ITEM_TYPE_THUMB1;
 		}
 		return ITEM_TYPE_THUMB3;

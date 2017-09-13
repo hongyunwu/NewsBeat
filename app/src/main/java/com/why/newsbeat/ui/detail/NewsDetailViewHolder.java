@@ -1,6 +1,8 @@
 package com.why.newsbeat.ui.detail;
 
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.tencent.smtt.sdk.WebView;
@@ -14,6 +16,12 @@ import butterknife.BindView;
  */
 public class NewsDetailViewHolder extends BaseHolder{
 
+	@BindView(R.id.comments_bar)
+	Toolbar comments_bar;
+	@BindView(R.id.write_comments)
+	Button write_comments;
+	@BindView(R.id.tool_bar)
+	Toolbar tool_bar;
 	@BindView(R.id.progress)
 	ProgressBar progress;
 	@BindView(R.id.news_detail)

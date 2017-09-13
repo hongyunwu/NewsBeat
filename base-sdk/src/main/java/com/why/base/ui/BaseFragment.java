@@ -2,6 +2,8 @@ package com.why.base.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,7 +29,8 @@ import java.lang.reflect.ParameterizedType;
  */
 @BaseUI
 public abstract class BaseFragment<T extends BaseHolder> extends Fragment {
-
+    
+    protected Handler mHandler = new Handler(Looper.getMainLooper());
     protected T viewHolder;
     private View contentView;
 
@@ -42,14 +45,15 @@ public abstract class BaseFragment<T extends BaseHolder> extends Fragment {
             }catch (Exception e){
                 e.printStackTrace();
             }
-
+            initData();
 
         }
         EventBus.getDefault().register(this);
         Log.i("BaseFragment",getClass().getSimpleName()+" onCreateView()...");
-        initData();
+
         return contentView;
     }
+
 
     /**
      * 获取layoutID

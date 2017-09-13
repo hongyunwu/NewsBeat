@@ -61,7 +61,7 @@ public class TopFragment extends BaseFragment<TopViewHolder> {
 			@Override
 			public void onItemClick(int position, TopBean.ResultBean.DataBean dataBean) {
 				Bundle bundle = new Bundle();
-				bundle.putString("news",dataBean.getUrl());
+				bundle.putParcelable("news",dataBean);
 				gotoSubActivity(NewsDetailActivity.class,bundle,false);
 			}
 		});

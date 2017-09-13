@@ -35,7 +35,7 @@ public class TopViewAdapter extends RecyclerView.Adapter<TopItemViewHolder> {
 	public int getItemViewType(int position) {
 		TopBean.ResultBean.DataBean dataBean = mData.get(position);
 		if (TextUtils.isEmpty(dataBean.getThumbnail_pic_s02())
-				&& TextUtils.isEmpty(dataBean.getThumbnail_pic_s03())) {
+				|| TextUtils.isEmpty(dataBean.getThumbnail_pic_s03())) {
 			return ITEM_TYPE_THUMB1;
 		}
 		return ITEM_TYPE_THUMB3;

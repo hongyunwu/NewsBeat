@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/detail_comment_height"
+    android:layout_gravity="bottom"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/tab_bg_color"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/detail_comment_margin"
+        android:paddingRight="@dimen/detail_comment_margin">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/detail_comment_margin"
+            android:background="@drawable/back"/>
+
+        <Button
+            android:id="@+id/write_comments"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="@dimen/width_0"
+            android:layout_height="@dimen/detail_comment_btn_height"
+            android:layout_marginRight="@dimen/detail_comment_pic_margin"
+            android:layout_weight="@integer/weight_1"
+            android:background="@drawable/detail_comment_shape"
+            android:elevation="@dimen/width_0"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="@dimen/detail_comment_btn_padding_left"
+            android:text="@string/write_comments"
+            android:textColor="@color/tab_text_color"/>
+
+        <ImageView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/detail_comment_pic_margin"
+            android:background="@drawable/message"/>
+
+        <ImageView
+            android:id="@+id/collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/detail_comment_pic_margin"
+            android:background="@drawable/collect"/>
+
+        <ImageView
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/share"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/line_color"/>
+</RelativeLayout>

@@ -61,7 +61,7 @@ public class YuLeFragment extends BaseFragment<YuLeViewHolder> {
 			@Override
 			public void onItemClick(int position, YuLeBean.ResultBean.DataBean dataBean) {
 				Bundle bundle = new Bundle();
-				bundle.putString("news",dataBean.getUrl());
+				bundle.putParcelable("news",dataBean);
 				gotoSubActivity(NewsDetailActivity.class,bundle,false);
 			}
 		});

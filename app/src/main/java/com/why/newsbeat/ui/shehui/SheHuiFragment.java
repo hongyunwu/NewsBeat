@@ -61,7 +61,7 @@ public class SheHuiFragment extends BaseFragment<SheHuiViewHolder> {
 			@Override
 			public void onItemClick(int position, SheHuiBean.ResultBean.DataBean dataBean) {
 				Bundle bundle = new Bundle();
-				bundle.putString("news",dataBean.getUrl());
+				bundle.putParcelable("news",dataBean);
 				gotoSubActivity(NewsDetailActivity.class,bundle,false);
 			}
 		});

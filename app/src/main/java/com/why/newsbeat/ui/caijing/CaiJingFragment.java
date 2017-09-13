@@ -61,7 +61,7 @@ public class CaiJingFragment extends BaseFragment<CaiJingViewHolder> {
 			@Override
 			public void onItemClick(int position, CaiJingBean.ResultBean.DataBean dataBean) {
 				Bundle bundle = new Bundle();
-				bundle.putString("news",dataBean.getUrl());
+				bundle.putParcelable("news",dataBean);
 				gotoSubActivity(NewsDetailActivity.class,bundle,false);
 			}
 		});

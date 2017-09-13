@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivity<MainViewHolder> {
 
 
 	public String[] tabTitles = new String[]{
-			"头条", "社会", "国内", "国际", "娱乐", "体育", "军事", "科技", "财经", "时尚"
+			"头条","社会", "国内", "国际", "娱乐", "体育", "军事", "科技", "财经", "时尚"
 	};
 	private ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
@@ -98,6 +98,5 @@ public class MainActivity extends BaseActivity<MainViewHolder> {
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle("");
-
 	}
 }

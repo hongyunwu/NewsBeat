@@ -3,4 +3,10 @@
     <string name="open_drawer">打开侧滑菜单</string>
     <string name="close_drawer">关闭侧滑菜单</string>
     <string name="add">添加</string>
+    <string name="follow">关注</string>
+    <string name="write_comments">写评论...</string>
+    <string name="share">分享</string>
+    <string name="collect">收藏</string>
+    <string name="message">消息</string>
+    <string name="send">发送</string>
 </resources>

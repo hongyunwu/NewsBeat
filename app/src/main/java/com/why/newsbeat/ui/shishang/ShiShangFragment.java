@@ -61,7 +61,7 @@ public class ShiShangFragment extends BaseFragment<ShiShangViewHolder> {
 			@Override
 			public void onItemClick(int position, ShiShangBean.ResultBean.DataBean dataBean) {
 				Bundle bundle = new Bundle();
-				bundle.putString("news",dataBean.getUrl());
+				bundle.putParcelable("news",dataBean);
 				gotoSubActivity(NewsDetailActivity.class,bundle,false);
 			}
 		});

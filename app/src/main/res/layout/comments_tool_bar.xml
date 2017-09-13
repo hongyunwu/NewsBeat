@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/detail_comment_height"
+    android:layout_gravity="bottom"
+    android:background="@drawable/detail_comments_layer"
+    app:popupTheme="@style/CommentsToolBarPopupStyle"
+    app:theme="@style/CommentsToolBarStyle"
+    android:id="@+id/comments_bar"
+    app:contentInsetStart="@dimen/width_0"
+    app:contentInsetStartWithNavigation="@dimen/width_0"
+    >
+    <include layout="@layout/comments_button"/>
+
+</android.support.v7.widget.Toolbar>

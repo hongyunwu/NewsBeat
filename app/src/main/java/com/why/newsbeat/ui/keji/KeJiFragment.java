@@ -60,7 +60,7 @@ public class KeJiFragment extends BaseFragment<KeJiViewHolder> {
 			@Override
 			public void onItemClick(int position, KeJiBean.ResultBean.DataBean dataBean) {
 				Bundle bundle = new Bundle();
-				bundle.putString("news",dataBean.getUrl());
+				bundle.putParcelable("news",dataBean);
 				gotoSubActivity(NewsDetailActivity.class,bundle,false);
 			}
 		});

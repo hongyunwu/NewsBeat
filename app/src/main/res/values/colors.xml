@@ -9,4 +9,8 @@
     <color name="divider_color">#d5d5d5</color>
     <color name="color_item_unpressed">#FFFFFF</color>
     <color name="color_item_pressed">#d5d5d5</color>
+    <color name="detail_follow_pressed">#057A79</color>
+    <color name="color_black">#000</color>
+    <color name="line_color">#d5d5d5</color>
+    <color name="detail_comment_btn_bg_color">#EEEEEE</color>
 </resources>
