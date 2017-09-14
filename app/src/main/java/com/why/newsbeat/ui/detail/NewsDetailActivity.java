@@ -16,6 +16,9 @@ import com.why.base.ui.BaseActivity;
 import com.why.base.utils.LogUtils;
 import com.why.newsbeat.R;
 import com.why.newsbeat.base.detail.DetailApi;
+import com.why.newsbeat.service.collect.bean.Collect;
+import com.why.newsbeat.service.collect.dao.CollectDao;
+import com.why.newsbeat.service.collect.manager.DBManager;
 import com.why.newsbeat.ui.detail.comments.CommentsFragment;
 
 public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> implements View.OnClickListener {
@@ -102,6 +105,17 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 						break;
 					case R.id.collect:
 						LogUtils.i("onMenuItemClick->collect");
+
+						DBManager.insert(NewsDetailActivity.this,new Collect(detailApi.getUniquekey()
+								,detailApi.getTitle()
+								,detailApi.getDate()
+								,detailApi.getCategory()
+								,detailApi.getAuthor_name()
+								,detailApi.getUrl()
+								,detailApi.getThumbnail_pic_s()
+								,detailApi.getThumbnail_pic_s02()
+								,detailApi.getThumbnail_pic_s03()));
+
 						break;
 					case R.id.message:
 						LogUtils.i("onMenuItemClick->message");

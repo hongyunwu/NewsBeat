@@ -23,7 +23,7 @@ public class GuoJiImpl extends BaseImpl<GuoJiService> implements GuoJiApi {
 	@Override
 	public void loadGuoJiNews() {
 
-		mService.getGuoJiNews("guoji", NetUrl.API_KEY)
+		mService.getGuoJiNews("guoji", NetUrl.NEWS_API_KEY)
 				.subscribeOn(Schedulers.newThread())//在新线程中调用
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Observer<GuoJiBean>() {

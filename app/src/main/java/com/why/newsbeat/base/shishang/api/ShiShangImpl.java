@@ -23,7 +23,7 @@ public class ShiShangImpl extends BaseImpl<ShiShangService> implements ShiShangA
 	@Override
 	public void loadShiShangNews() {
 
-		mService.getShiShangNews("shishang", NetUrl.API_KEY)
+		mService.getShiShangNews("shishang", NetUrl.NEWS_API_KEY)
 				.subscribeOn(Schedulers.newThread())//在新线程中调用
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Observer<ShiShangBean>() {

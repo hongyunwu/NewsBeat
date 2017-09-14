@@ -3,9 +3,14 @@ package com.why.newsbeat.ui;
 
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Gravity;
 
+import com.google.gson.Gson;
 import com.why.base.ui.BaseActivity;
 import com.why.base.ui.BaseFragment;
+import com.why.base.utils.LogUtils;
+import com.why.newsbeat.base.NewsBeat;
+import com.why.newsbeat.base.weather.event.WeatherEvent;
 import com.why.newsbeat.ui.caijing.CaiJingFragment;
 import com.why.newsbeat.ui.guiji.GuoJiFragment;
 import com.why.newsbeat.ui.guonei.GuoNeiFragment;
@@ -17,6 +22,8 @@ import com.why.newsbeat.ui.shishang.ShiShangFragment;
 import com.why.newsbeat.ui.tiyu.TiYuFragment;
 import com.why.newsbeat.ui.top.TopFragment;
 import com.why.newsbeat.ui.yule.YuLeFragment;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
@@ -87,6 +94,7 @@ public class MainActivity extends BaseActivity<MainViewHolder> {
 	 * 初始化侧滑菜单栏
 	 */
 	private void initNavigationView() {
+		NewsBeat.loadWeather();
 
 	}
 
@@ -98,5 +106,27 @@ public class MainActivity extends BaseActivity<MainViewHolder> {
 		getSupportActionBar().setDisplayShowHomeEnabled(true);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle("");
+	}
+
+	@Override
+	public void onBackPressed() {
+
+		if (viewHolder.main_drawer.isDrawerOpen(Gravity.LEFT)) {
+
+			viewHolder.main_drawer.closeDrawer(Gravity.LEFT);
+		}else{
+			super.onBackPressed();
+		}
+
+	}
+
+	/**
+	 * 当天气加载完成时的回调
+	 * @param weatherEvent
+	 */
+	@Subscribe
+	public void onLoadWeather(WeatherEvent weatherEvent){
+
+		LogUtils.i(new Gson().toJson(weatherEvent.getEvent()));
 	}
 }

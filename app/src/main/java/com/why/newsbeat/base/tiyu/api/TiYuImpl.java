@@ -23,7 +23,7 @@ public class TiYuImpl extends BaseImpl<TiYuService> implements TiYuApi {
 	@Override
 	public void loadTiYuNews() {
 
-		mService.getTiYuNews("tiyu", NetUrl.API_KEY)
+		mService.getTiYuNews("tiyu", NetUrl.NEWS_API_KEY)
 				.subscribeOn(Schedulers.newThread())//在新线程中调用
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Observer<TiYuBean>() {

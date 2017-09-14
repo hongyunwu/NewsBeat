@@ -23,7 +23,7 @@ public class GuoNeiImpl extends BaseImpl<GuoNeiService> implements GuoNeiApi {
 	@Override
 	public void loadGuoNeiNews() {
 
-		mService.getGuoNeiNews("guonei", NetUrl.API_KEY)
+		mService.getGuoNeiNews("guonei", NetUrl.NEWS_API_KEY)
 				.subscribeOn(Schedulers.newThread())//在新线程中调用
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Observer<GuoNeiBean>() {

@@ -5,7 +5,6 @@ import com.why.newsbeat.NetUrl;
 import com.why.newsbeat.base.BaseImpl;
 import com.why.newsbeat.base.shehui.bean.SheHuiBean;
 import com.why.newsbeat.base.shehui.event.SheHuiNewsEvent;
-import com.why.newsbeat.base.top.bean.TopBean;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -24,7 +23,7 @@ public class SheHuiImpl extends BaseImpl<SheHuiService> implements SheHuiApi {
 	@Override
 	public void loadSheHuiNews() {
 
-		mService.getSheHuiNews("shehui", NetUrl.API_KEY)
+		mService.getSheHuiNews("shehui", NetUrl.NEWS_API_KEY)
 				.subscribeOn(Schedulers.newThread())//在新线程中调用
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Observer<SheHuiBean>() {

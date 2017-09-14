@@ -23,7 +23,7 @@ public class KeJiImpl extends BaseImpl<KeJiService> implements KeJiApi {
 	@Override
 	public void loadKeJiNews() {
 
-		mService.getkeJiNews("keji", NetUrl.API_KEY)
+		mService.getkeJiNews("keji", NetUrl.NEWS_API_KEY)
 				.subscribeOn(Schedulers.newThread())//在新线程中调用
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Observer<KeJiBean>() {

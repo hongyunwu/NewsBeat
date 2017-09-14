@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.utils.DeviceConfig;
 import com.why.newsbeat.base.caijing.api.CaiJingApi;
 import com.why.newsbeat.base.caijing.api.CaiJingImpl;
 import com.why.newsbeat.base.guoji.api.GuoJiApi;
@@ -22,11 +23,16 @@ import com.why.newsbeat.base.tiyu.api.TiYuApi;
 import com.why.newsbeat.base.tiyu.api.TiYuImpl;
 import com.why.newsbeat.base.top.api.TopApi;
 import com.why.newsbeat.base.top.api.TopImpl;
+import com.why.newsbeat.base.weather.api.WeatherApi;
+import com.why.newsbeat.base.weather.api.WeatherImpl;
 import com.why.newsbeat.base.yule.api.YuLeApi;
 import com.why.newsbeat.base.yule.api.YuLeImpl;
+import com.why.newsbeat.service.collect.manager.DBManager;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static com.umeng.socialize.utils.DeviceConfig.context;
 
 /**
  * Created by lenovo on 2017/9/2.
@@ -44,6 +50,7 @@ public class NewsBeat{
 	private ShiShangApi mShiShangImpl;
 	private TiYuApi mTiYuImpl;
 	private YuLeApi mYuLeImpl;
+	private WeatherApi mWeatherImpl;
 
 	private NewsBeat(){
 
@@ -64,10 +71,24 @@ public class NewsBeat{
 	private void onInit(Context context) {
 		initBugly(context);
 		initUmengShare();
+		initGreenDao(context);
 
 
 	}
 
+	/**
+	 * 对数据库进行初始化
+	 *
+	 * @param context
+	 */
+	private void initGreenDao(Context context) {
+
+		DBManager.init(context);
+	}
+
+	/**
+	 * 初始化友盟分享组件
+	 */
 	private void initUmengShare() {
 		PlatformConfig.setWeixin("4155444921","a8d7372b73d6d5dae7a9e90f43fc8115");
 		PlatformConfig.setQQZone("1106338049","7NVp0yRpmGavdBB6");
@@ -234,6 +255,24 @@ public class NewsBeat{
 			}
 		}
 		return mYuLeImpl;
+	}
+
+
+	private WeatherApi getWeatherImpl(){
+		if (mWeatherImpl ==null){
+
+			synchronized (NewsBeat.class){
+				if (mWeatherImpl==null){
+					mWeatherImpl = new WeatherImpl();
+				}
+			}
+		}
+
+		return mWeatherImpl;
+	}
+
+	public static void loadWeather(){
+		getInstance().getWeatherImpl().loadWeather();
 	}
 
 }

@@ -23,7 +23,7 @@ public class CaiJingImpl extends BaseImpl<CaiJingService> implements CaiJingApi 
 	@Override
 	public void loadCaiJingNews() {
 
-		mService.getCaiJingNews("caijing", NetUrl.API_KEY)
+		mService.getCaiJingNews("caijing", NetUrl.NEWS_API_KEY)
 				.subscribeOn(Schedulers.newThread())//在新线程中调用
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Observer<CaiJingBean>() {

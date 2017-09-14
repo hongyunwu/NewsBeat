@@ -11,4 +11,8 @@ public interface DetailApi {
 	String getTitle();
 	String getAuthor_name();
 	String getCategory();
+	String getThumbnail_pic_s();
+	String getThumbnail_pic_s02();
+	String getThumbnail_pic_s03();
+	String getUniquekey();
 }

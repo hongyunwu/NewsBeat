@@ -23,7 +23,7 @@ public class TopImpl extends BaseImpl<TopService> implements TopApi {
 	@Override
 	public void loadATopNews() {
 
-		mService.getTopNews("top", NetUrl.API_KEY)
+		mService.getTopNews("top", NetUrl.NEWS_API_KEY)
 				.subscribeOn(Schedulers.newThread())//在新线程中调用
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Observer<TopBean>() {

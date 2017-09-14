@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
@@ -22,6 +23,12 @@ android {
     sourceSets {
         main.jniLibs.srcDirs = ['libs']
     }
+
+    greendao{
+        schemaVersion 1
+        daoPackage 'com.why.newsbeat.service.collect.dao'
+        targetGenDir 'src/main/java'
+    }
 }
 
 dependencies {
@@ -37,6 +44,10 @@ dependencies {
     compile 'com.tencent.bugly:crashreport:latest.release'
     compile 'com.tencent.bugly:nativecrashreport:latest.release'
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    compile 'org.greenrobot:greendao:3.2.2'
+
+
+
     compile files('libs/SocialSDK_QQ_Full.jar')
     compile files('libs/open_sdk_r5788_lite.jar')
     compile files('libs/SocialSDK_Sina_Full.jar')

@@ -23,7 +23,7 @@ public class JunShiImpl extends BaseImpl<JunShiService> implements JunShiApi {
 	@Override
 	public void loadJunShiNews() {
 
-		mService.getJunShiNews("junshi", NetUrl.API_KEY)
+		mService.getJunShiNews("junshi", NetUrl.NEWS_API_KEY)
 				.subscribeOn(Schedulers.newThread())//在新线程中调用
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Observer<JunShiBean>() {

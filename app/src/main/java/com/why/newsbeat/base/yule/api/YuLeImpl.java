@@ -23,7 +23,7 @@ public class YuLeImpl extends BaseImpl<YuLeService> implements YuLeApi {
 	@Override
 	public void loadYuLeNews() {
 
-		mService.getYuLeNews("yule", NetUrl.API_KEY)
+		mService.getYuLeNews("yule", NetUrl.NEWS_API_KEY)
 				.subscribeOn(Schedulers.newThread())//在新线程中调用
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Observer<YuLeBean>() {
