@@ -9,4 +9,8 @@
     <string name="collect">收藏</string>
     <string name="message">消息</string>
     <string name="send">发送</string>
+    <string name="settings">设置</string>
+    <string name="history">足迹</string>
+    <string name="exit">退出</string>
+    <string name="logout">退出登录</string>
 </resources>

@@ -4,6 +4,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.tencent.smtt.sdk.WebView;
 import com.why.base.ui.BaseHolder;
@@ -26,6 +27,10 @@ public class NewsDetailViewHolder extends BaseHolder{
 	ProgressBar progress;
 	@BindView(R.id.news_detail)
 	WebView news_detail;
+	@BindView(R.id.author_name)
+	TextView author_name;
+	@BindView(R.id.date)
+	TextView date;
 	/**
 	 * 此处使用butterKnife进行了view绑定操作
 	 *

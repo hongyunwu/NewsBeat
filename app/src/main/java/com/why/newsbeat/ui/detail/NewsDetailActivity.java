@@ -58,6 +58,8 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 	protected void dealIntent() {
 
 		detailApi = getIntent().getParcelableExtra("news");
+		viewHolder.author_name.setText(detailApi.getAuthor_name());
+		viewHolder.date.setText(detailApi.getDate());
 	}
 
 	@Override
