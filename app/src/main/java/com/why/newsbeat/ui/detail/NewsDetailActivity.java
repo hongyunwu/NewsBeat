@@ -18,6 +18,7 @@ import com.why.newsbeat.R;
 import com.why.newsbeat.base.NewsBeat;
 import com.why.newsbeat.base.detail.DetailApi;
 import com.why.newsbeat.base.collect.bean.Collect;
+import com.why.newsbeat.base.history.bean.History;
 import com.why.newsbeat.dao.manager.DBManager;
 import com.why.newsbeat.ui.detail.comments.CommentsFragment;
 
@@ -63,6 +64,17 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 		detailApi = getIntent().getParcelableExtra("news");
 		viewHolder.author_name.setText(detailApi.getAuthor_name());
 		viewHolder.date.setText(detailApi.getDate());
+
+		DBManager.insert(getApplicationContext(),new History(NewsBeat.getUserName(),
+				detailApi.getUniquekey(),
+				detailApi.getTitle(),
+				detailApi.getDate(),
+				detailApi.getCategory(),
+				detailApi.getAuthor_name(),
+				detailApi.getUrl(),
+				detailApi.getThumbnail_pic_s(),
+				detailApi.getThumbnail_pic_s02(),
+				detailApi.getThumbnail_pic_s03()));
 	}
 
 	@Override

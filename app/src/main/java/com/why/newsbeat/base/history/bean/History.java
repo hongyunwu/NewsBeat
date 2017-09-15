@@ -1,4 +1,4 @@
-package com.why.newsbeat.base.history;
+package com.why.newsbeat.base.history.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.why.base.utils.LogUtils;
 import com.why.newsbeat.base.collect.bean.Collect;
-import com.why.newsbeat.base.history.History;
+import com.why.newsbeat.base.history.bean.History;
 import com.why.newsbeat.dao.greendao.CollectDao;
 import com.why.newsbeat.dao.greendao.DaoMaster;
 import com.why.newsbeat.dao.greendao.DaoSession;
@@ -152,8 +152,8 @@ public class DBManager {
                 .getHistoryDao();
         List<History> historyList = historyDao
                 .queryBuilder()
-                .where(CollectDao.Properties.Uniquekey.eq(history.getUniquekey())
-                        , CollectDao.Properties.Username.eq(history.getUsername()))
+                .where(HistoryDao.Properties.Uniquekey.eq(history.getUniquekey())
+                        , HistoryDao.Properties.Username.eq(history.getUsername()))
                 .build()//先确定数据库 当前用户是否有当前收藏
                 .list();
         if (historyList
@@ -161,7 +161,8 @@ public class DBManager {
             historyDao
                     .insert(history);
         }else{
-            historyDao.update(historyList.get(0));
+            historyDao.delete(historyList.get(0));
+            historyDao.insert(history);
         }
     }
 

@@ -13,6 +13,8 @@ import com.why.newsbeat.base.guoji.api.GuoJiApi;
 import com.why.newsbeat.base.guoji.api.GuoJiImpl;
 import com.why.newsbeat.base.guonei.api.GuoNeiApi;
 import com.why.newsbeat.base.guonei.api.GuoNeiImpl;
+import com.why.newsbeat.base.history.api.HistoryApi;
+import com.why.newsbeat.base.history.api.HistoryImpl;
 import com.why.newsbeat.base.junshi.api.JunShiApi;
 import com.why.newsbeat.base.junshi.api.JunShiImpl;
 import com.why.newsbeat.base.keji.api.KeJiApi;
@@ -52,6 +54,7 @@ public class NewsBeat{
 	private YuLeApi mYuLeImpl;
 	private WeatherApi mWeatherImpl;
 	private CollectApi mCollectImpl;
+	private HistoryApi mHistoryImpl;
 
 	private NewsBeat(){
 
@@ -307,4 +310,27 @@ public class NewsBeat{
 		getInstance().getCollectImpl().loadCollections(number,page);
 	}
 
+
+	private HistoryApi getHistoryImpl(){
+		if (mHistoryImpl ==null){
+
+			synchronized (NewsBeat.class){
+				if (mHistoryImpl==null){
+					mHistoryImpl = new HistoryImpl();
+				}
+			}
+		}
+		return mHistoryImpl;
+	}
+
+	/**
+	 * 加载历史列表
+	 *
+	 * @param number 加载历史数量
+	 * @param page 页码
+	 */
+	public static void loadHistories(int number,int page){
+
+		getInstance().getHistoryImpl().loadHistories(number,page);
+	}
 }

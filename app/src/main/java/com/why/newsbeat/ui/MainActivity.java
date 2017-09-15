@@ -23,6 +23,7 @@ import com.why.newsbeat.ui.collect.CollectActivity;
 import com.why.newsbeat.ui.guiji.GuoJiFragment;
 import com.why.newsbeat.ui.guonei.GuoNeiFragment;
 import com.why.newsbeat.R;
+import com.why.newsbeat.ui.history.HistoryActivity;
 import com.why.newsbeat.ui.junshi.JunShiFragment;
 import com.why.newsbeat.ui.keji.KeJiFragment;
 import com.why.newsbeat.ui.shehui.SheHuiFragment;
@@ -169,7 +170,7 @@ public class MainActivity extends BaseActivity<MainViewHolder> implements Naviga
 
 				break;
 			case R.id.history:
-
+				gotoSubActivity(HistoryActivity.class,false);
 				break;
 			case R.id.logout:
 				AppCache.exitApp();
