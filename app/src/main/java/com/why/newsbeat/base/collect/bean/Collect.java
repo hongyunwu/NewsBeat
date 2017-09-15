@@ -140,7 +140,7 @@ public class Collect implements DetailApi,Parcelable{
 		dest.writeString(thumbnail_pic_s);
 		dest.writeString(thumbnail_pic_s02);
 		dest.writeString(thumbnail_pic_s03);
-
+		dest.writeLong(save_time);
 	}
 
 
@@ -155,13 +155,15 @@ public class Collect implements DetailApi,Parcelable{
 		thumbnail_pic_s = source.readString();
 		thumbnail_pic_s02 = source.readString();
 		thumbnail_pic_s03 = source.readString();
+		save_time = source.readLong();
 
 	}
 
-	@Generated(hash = 1122077779)
-	public Collect(String username, String uniquekey, String title, String date,
-			String category, String author_name, String url, String thumbnail_pic_s,
-			String thumbnail_pic_s02, String thumbnail_pic_s03) {
+	@Generated(hash = 1004858237)
+	public Collect(long save_time, String username, String uniquekey, String title,
+			String date, String category, String author_name, String url,
+			String thumbnail_pic_s, String thumbnail_pic_s02, String thumbnail_pic_s03) {
+		this.save_time = save_time;
 		this.username = username;
 		this.uniquekey = uniquekey;
 		this.title = title;
@@ -177,6 +179,15 @@ public class Collect implements DetailApi,Parcelable{
 	@Generated(hash = 1726975718)
 	public Collect() {
 	}
+	public long getSave_time() {
+		return save_time;
+	}
+
+	public void setSave_time(long save_time) {
+		this.save_time = save_time;
+	}
+
+	private long save_time;
 	private String username;
 	@Unique@Id
 	private String uniquekey;

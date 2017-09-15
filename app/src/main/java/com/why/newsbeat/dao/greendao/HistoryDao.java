@@ -34,6 +34,7 @@ public class HistoryDao extends AbstractDao<History, String> {
         public final static Property Thumbnail_pic_s = new Property(7, String.class, "thumbnail_pic_s", false, "THUMBNAIL_PIC_S");
         public final static Property Thumbnail_pic_s02 = new Property(8, String.class, "thumbnail_pic_s02", false, "THUMBNAIL_PIC_S02");
         public final static Property Thumbnail_pic_s03 = new Property(9, String.class, "thumbnail_pic_s03", false, "THUMBNAIL_PIC_S03");
+        public final static Property Save_time = new Property(10, long.class, "save_time", false, "SAVE_TIME");
     }
 
 
@@ -58,7 +59,8 @@ public class HistoryDao extends AbstractDao<History, String> {
                 "\"URL\" TEXT," + // 6: url
                 "\"THUMBNAIL_PIC_S\" TEXT," + // 7: thumbnail_pic_s
                 "\"THUMBNAIL_PIC_S02\" TEXT," + // 8: thumbnail_pic_s02
-                "\"THUMBNAIL_PIC_S03\" TEXT);"); // 9: thumbnail_pic_s03
+                "\"THUMBNAIL_PIC_S03\" TEXT," + // 9: thumbnail_pic_s03
+                "\"SAVE_TIME\" INTEGER NOT NULL );"); // 10: save_time
     }
 
     /** Drops the underlying database table. */
@@ -120,6 +122,7 @@ public class HistoryDao extends AbstractDao<History, String> {
         if (thumbnail_pic_s03 != null) {
             stmt.bindString(10, thumbnail_pic_s03);
         }
+        stmt.bindLong(11, entity.getSave_time());
     }
 
     @Override
@@ -175,6 +178,7 @@ public class HistoryDao extends AbstractDao<History, String> {
         if (thumbnail_pic_s03 != null) {
             stmt.bindString(10, thumbnail_pic_s03);
         }
+        stmt.bindLong(11, entity.getSave_time());
     }
 
     @Override
@@ -194,7 +198,8 @@ public class HistoryDao extends AbstractDao<History, String> {
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // url
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // thumbnail_pic_s
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // thumbnail_pic_s02
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9) // thumbnail_pic_s03
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // thumbnail_pic_s03
+            cursor.getLong(offset + 10) // save_time
         );
         return entity;
     }
@@ -211,6 +216,7 @@ public class HistoryDao extends AbstractDao<History, String> {
         entity.setThumbnail_pic_s(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setThumbnail_pic_s02(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setThumbnail_pic_s03(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setSave_time(cursor.getLong(offset + 10));
      }
     
     @Override

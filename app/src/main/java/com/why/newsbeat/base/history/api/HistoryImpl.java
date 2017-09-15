@@ -34,6 +34,7 @@ public class HistoryImpl implements HistoryApi {
 								.getHistoryDao()
 								.queryBuilder()
 								.where(HistoryDao.Properties.Username.eq(NewsBeat.getUserName()))
+								.orderDesc(HistoryDao.Properties.Save_time)
 								.limit(number)
 								.offset(page * number)
 								.build()

@@ -6,6 +6,7 @@ import com.why.newsbeat.base.NewsBeat;
 import com.why.newsbeat.base.collect.event.CollectNewsEvent;
 import com.why.newsbeat.base.collect.bean.Collect;
 import com.why.newsbeat.dao.greendao.CollectDao;
+import com.why.newsbeat.dao.greendao.HistoryDao;
 import com.why.newsbeat.dao.manager.DBManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,12 +29,13 @@ public class CollectImpl implements CollectApi {
 					@Override
 					public void run() {
 
-						//数据库查询
+						//数据库查询，按时间降序排列
 						List<Collect> collectList = DBManager
 								.getDaoSession(AppCache.getContext())
 								.getCollectDao()
 								.queryBuilder()
 								.where(CollectDao.Properties.Username.eq(NewsBeat.getUserName()))
+								.orderDesc(CollectDao.Properties.Save_time)
 								.limit(number)
 								.offset(page * number)
 								.build()

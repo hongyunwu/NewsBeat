@@ -1,6 +1,7 @@
 package com.why.newsbeat.ui.detail;
 
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,7 +75,8 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 				detailApi.getUrl(),
 				detailApi.getThumbnail_pic_s(),
 				detailApi.getThumbnail_pic_s02(),
-				detailApi.getThumbnail_pic_s03()));
+				detailApi.getThumbnail_pic_s03(),
+				SystemClock.uptimeMillis()));
 	}
 
 	@Override
@@ -119,7 +121,8 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 						LogUtils.i("onMenuItemClick->item.isChecked():" + item.isChecked());
 						if (item.isChecked()) {
 
-							DBManager.delete(getApplication(), new Collect(NewsBeat.getUserName()
+							DBManager.delete(getApplication(), new Collect(SystemClock.uptimeMillis()
+									,NewsBeat.getUserName()
 									, detailApi.getUniquekey()
 									, detailApi.getTitle()
 									, detailApi.getDate()
@@ -128,11 +131,13 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 									, detailApi.getUrl()
 									, detailApi.getThumbnail_pic_s()
 									, detailApi.getThumbnail_pic_s02()
-									, detailApi.getThumbnail_pic_s03()));
+									, detailApi.getThumbnail_pic_s03()
+									));
 							viewHolder.comments_bar.getMenu().findItem(R.id.collect).setIcon(R.drawable.collect_unselected);
 
 						} else {
-							DBManager.insert(getApplication(), new Collect(NewsBeat.getUserName()
+							DBManager.insert(getApplication(), new Collect(SystemClock.uptimeMillis()
+									,NewsBeat.getUserName()
 									, detailApi.getUniquekey()
 									, detailApi.getTitle()
 									, detailApi.getDate()
