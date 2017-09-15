@@ -26,6 +26,7 @@ import com.why.newsbeat.R;
 import com.why.newsbeat.ui.history.HistoryActivity;
 import com.why.newsbeat.ui.junshi.JunShiFragment;
 import com.why.newsbeat.ui.keji.KeJiFragment;
+import com.why.newsbeat.ui.settings.SettingsActivity;
 import com.why.newsbeat.ui.shehui.SheHuiFragment;
 import com.why.newsbeat.ui.shishang.ShiShangFragment;
 import com.why.newsbeat.ui.tiyu.TiYuFragment;
@@ -167,7 +168,7 @@ public class MainActivity extends BaseActivity<MainViewHolder> implements Naviga
 				//closeDrawer();
 				break;
 			case R.id.settings:
-
+				gotoSubActivity(SettingsActivity.class,false);
 				break;
 			case R.id.history:
 				gotoSubActivity(HistoryActivity.class,false);

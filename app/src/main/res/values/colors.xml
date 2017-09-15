@@ -14,5 +14,6 @@
     <color name="line_color">#d5d5d5</color>
     <color name="detail_comment_btn_bg_color">#EEEEEE</color>
     <color name="normal_txt_color">#222</color>
+    <color name="canvas_color">#FAFAFA</color>
 
 </resources>

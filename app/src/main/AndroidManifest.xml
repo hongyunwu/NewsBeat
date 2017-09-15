@@ -80,10 +80,10 @@
             android:exported="false"/>
 
         <activity android:name=".ui.collect.CollectActivity">
-
         </activity>
         <activity android:name=".ui.history.HistoryActivity">
-
+        </activity>
+        <activity android:name=".ui.settings.SettingsActivity">
         </activity>
     </application>
 
