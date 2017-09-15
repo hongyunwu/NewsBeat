@@ -80,5 +80,5 @@
         <item name="android:textSize">@dimen/tab_text_size</item>
     </style>
 
-    <color name="normal_txt_color">#222</color>
+
 </resources>

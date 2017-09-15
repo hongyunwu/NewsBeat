@@ -15,10 +15,10 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.why.base.ui.BaseActivity;
 import com.why.base.utils.LogUtils;
 import com.why.newsbeat.R;
+import com.why.newsbeat.base.NewsBeat;
 import com.why.newsbeat.base.detail.DetailApi;
-import com.why.newsbeat.service.collect.bean.Collect;
-import com.why.newsbeat.service.collect.dao.CollectDao;
-import com.why.newsbeat.service.collect.manager.DBManager;
+import com.why.newsbeat.base.collect.bean.Collect;
+import com.why.newsbeat.dao.manager.DBManager;
 import com.why.newsbeat.ui.detail.comments.CommentsFragment;
 
 public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> implements View.OnClickListener {
@@ -28,22 +28,22 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 	private UMShareListener umShareListener = new UMShareListener() {
 		@Override
 		public void onStart(SHARE_MEDIA share_media) {
-			LogUtils.i("onStart->"+share_media);
+			LogUtils.i("onStart->" + share_media);
 		}
 
 		@Override
 		public void onResult(SHARE_MEDIA share_media) {
-			LogUtils.i("onResult->"+share_media);
+			LogUtils.i("onResult->" + share_media);
 		}
 
 		@Override
 		public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-			LogUtils.i("onError->"+share_media+",error->"+throwable.getMessage());
+			LogUtils.i("onError->" + share_media + ",error->" + throwable.getMessage());
 		}
 
 		@Override
 		public void onCancel(SHARE_MEDIA share_media) {
-			LogUtils.i("onCancel->"+share_media);
+			LogUtils.i("onCancel->" + share_media);
 		}
 	};
 
@@ -88,33 +88,52 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 
-				switch (item.getItemId()){
+				switch (item.getItemId()) {
 					case R.id.share:
 						LogUtils.i("onMenuItemClick->share");
 						//UMShareAPI.get(NewsDetailActivity.this).getPlatformInfo(this, S, authListener);
 						new ShareAction(NewsDetailActivity.this)
 								.withText("hello")
 								.setDisplayList(SHARE_MEDIA.SINA
-										,SHARE_MEDIA.QQ
-										,SHARE_MEDIA.WEIXIN
-										,SHARE_MEDIA.WEIXIN_CIRCLE
-										,SHARE_MEDIA.WEIXIN_FAVORITE
+										, SHARE_MEDIA.QQ
+										, SHARE_MEDIA.WEIXIN
+										, SHARE_MEDIA.WEIXIN_CIRCLE
+										, SHARE_MEDIA.WEIXIN_FAVORITE
 								)
 								.setCallback(umShareListener)
 								.open();
 						break;
 					case R.id.collect:
-						LogUtils.i("onMenuItemClick->collect");
+						LogUtils.i("onMenuItemClick->item.isChecked():" + item.isChecked());
+						if (item.isChecked()) {
 
-						DBManager.insert(NewsDetailActivity.this,new Collect(detailApi.getUniquekey()
-								,detailApi.getTitle()
-								,detailApi.getDate()
-								,detailApi.getCategory()
-								,detailApi.getAuthor_name()
-								,detailApi.getUrl()
-								,detailApi.getThumbnail_pic_s()
-								,detailApi.getThumbnail_pic_s02()
-								,detailApi.getThumbnail_pic_s03()));
+							DBManager.delete(getApplication(), new Collect(NewsBeat.getUserName()
+									, detailApi.getUniquekey()
+									, detailApi.getTitle()
+									, detailApi.getDate()
+									, detailApi.getCategory()
+									, detailApi.getAuthor_name()
+									, detailApi.getUrl()
+									, detailApi.getThumbnail_pic_s()
+									, detailApi.getThumbnail_pic_s02()
+									, detailApi.getThumbnail_pic_s03()));
+							viewHolder.comments_bar.getMenu().findItem(R.id.collect).setIcon(R.drawable.collect_unselected);
+
+						} else {
+							DBManager.insert(getApplication(), new Collect(NewsBeat.getUserName()
+									, detailApi.getUniquekey()
+									, detailApi.getTitle()
+									, detailApi.getDate()
+									, detailApi.getCategory()
+									, detailApi.getAuthor_name()
+									, detailApi.getUrl()
+									, detailApi.getThumbnail_pic_s()
+									, detailApi.getThumbnail_pic_s02()
+									, detailApi.getThumbnail_pic_s03()));
+							viewHolder.comments_bar.getMenu().findItem(R.id.collect).setIcon(R.drawable.collect_selected);
+
+						}
+						item.setChecked(!item.isChecked());
 
 						break;
 					case R.id.message:
@@ -125,36 +144,43 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 			}
 		});
 		viewHolder.write_comments.setOnClickListener(this);
+		int size = DBManager.queryCollect(getApplication(), detailApi.getUniquekey(), NewsBeat.getUserName()).size();
+		//数据库查询是否已经被收藏
+		if(size>0){
+			viewHolder.comments_bar.getMenu().findItem(R.id.collect).setIcon(R.drawable.collect_selected);
+			viewHolder.comments_bar.getMenu().findItem(R.id.collect).setChecked(true);
+		}
+
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
+		UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
 	}
 
 	private void initWebView() {
 		viewHolder.news_detail.getSettings().setJavaScriptEnabled(true);
 		viewHolder.news_detail.loadUrl(detailApi.getUrl());
-		viewHolder.news_detail.setWebViewClient(new WebViewClient(){
+		viewHolder.news_detail.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView webView, String url) {
 				viewHolder.news_detail.loadUrl(url);
 				return true;
 			}
 		});
-		viewHolder.news_detail.setWebChromeClient(new WebChromeClient(){
+		viewHolder.news_detail.setWebChromeClient(new WebChromeClient() {
 
 
 			@Override
 			public void onProgressChanged(WebView webView, int progress) {
-				if (progress==100){
+				if (progress == 100) {
 					viewHolder.progress.setVisibility(View.INVISIBLE);
-				}else {
+				} else {
 					viewHolder.progress.setProgress(progress);
 				}
 
-				LogUtils.i("onProgressChanged:"+progress);
+				LogUtils.i("onProgressChanged:" + progress);
 				super.onProgressChanged(webView, progress);
 			}
 		});
@@ -168,9 +194,9 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 
 	@Override
 	public void onBackPressed() {
-		if (viewHolder.news_detail.canGoBack()){
+		if (viewHolder.news_detail.canGoBack()) {
 			viewHolder.news_detail.goBack();
-		}else {
+		} else {
 			super.onBackPressed();
 		}
 
@@ -201,10 +227,10 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailViewHolder> imple
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()){
+		switch (v.getId()) {
 			case R.id.write_comments:
 				LogUtils.i("onClick->write_comments");
-				new CommentsFragment().show(getSupportFragmentManager(),"");
+				new CommentsFragment().show(getSupportFragmentManager(), "");
 				break;
 
 			default:

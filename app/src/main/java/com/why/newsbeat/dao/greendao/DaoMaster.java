@@ -1,4 +1,4 @@
-package com.why.newsbeat.service.collect.dao;
+package com.why.newsbeat.dao.greendao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,11 +22,13 @@ public class DaoMaster extends AbstractDaoMaster {
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
         CollectDao.createTable(db, ifNotExists);
+        HistoryDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
         CollectDao.dropTable(db, ifExists);
+        HistoryDao.dropTable(db, ifExists);
     }
 
     /**
@@ -46,6 +48,7 @@ public class DaoMaster extends AbstractDaoMaster {
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
         registerDaoClass(CollectDao.class);
+        registerDaoClass(HistoryDao.class);
     }
 
     public DaoSession newSession() {

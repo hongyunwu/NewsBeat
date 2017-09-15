@@ -4,9 +4,11 @@ import android.content.Context;
 
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.socialize.PlatformConfig;
-import com.umeng.socialize.utils.DeviceConfig;
+import com.why.base.cache.AppCache;
 import com.why.newsbeat.base.caijing.api.CaiJingApi;
 import com.why.newsbeat.base.caijing.api.CaiJingImpl;
+import com.why.newsbeat.base.collect.api.CollectApi;
+import com.why.newsbeat.base.collect.api.CollectImpl;
 import com.why.newsbeat.base.guoji.api.GuoJiApi;
 import com.why.newsbeat.base.guoji.api.GuoJiImpl;
 import com.why.newsbeat.base.guonei.api.GuoNeiApi;
@@ -27,12 +29,10 @@ import com.why.newsbeat.base.weather.api.WeatherApi;
 import com.why.newsbeat.base.weather.api.WeatherImpl;
 import com.why.newsbeat.base.yule.api.YuLeApi;
 import com.why.newsbeat.base.yule.api.YuLeImpl;
-import com.why.newsbeat.service.collect.manager.DBManager;
+import com.why.newsbeat.dao.manager.DBManager;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static com.umeng.socialize.utils.DeviceConfig.context;
 
 /**
  * Created by lenovo on 2017/9/2.
@@ -51,10 +51,12 @@ public class NewsBeat{
 	private TiYuApi mTiYuImpl;
 	private YuLeApi mYuLeImpl;
 	private WeatherApi mWeatherImpl;
+	private CollectApi mCollectImpl;
 
 	private NewsBeat(){
 
 	}
+
 
 	private static class SingleHolder{
 		private static final NewsBeat mNewsBeat = new NewsBeat();
@@ -86,6 +88,12 @@ public class NewsBeat{
 		DBManager.init(context);
 	}
 
+
+
+	public static String getUserName() {
+
+		return AppCache.get("username","");
+	}
 	/**
 	 * 初始化友盟分享组件
 	 */
@@ -273,6 +281,30 @@ public class NewsBeat{
 
 	public static void loadWeather(){
 		getInstance().getWeatherImpl().loadWeather();
+	}
+
+
+	private CollectApi getCollectImpl(){
+		if (mCollectImpl ==null){
+
+			synchronized (NewsBeat.class){
+				if (mCollectImpl==null){
+					mCollectImpl = new CollectImpl();
+				}
+			}
+		}
+		return mCollectImpl;
+	}
+
+	/**
+	 * 加载收藏列表
+	 *
+	 * @param number 加载收藏数量
+	 * @param page 页码
+	 */
+	public static void loadCollections(int number,int page){
+
+		getInstance().getCollectImpl().loadCollections(number,page);
 	}
 
 }

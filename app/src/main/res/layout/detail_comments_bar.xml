@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/detail_comment_pic_margin"
-            android:background="@drawable/collect"/>
+            android:background="@drawable/collect_unselected"/>
 
         <ImageView
             android:id="@+id/share"

@@ -72,7 +72,7 @@ public class CaiJingBean {
 			this.data = data;
 		}
 
-		public static class DataBean implements Parcelable,DetailApi {
+		public static class DataBean implements Parcelable, DetailApi {
 			/**
 			 * uniquekey : c8711ffee9cb835360382c81fac47922
 			 * title : 美军亮出了这个星球上破坏力最强的武器 只为威慑这个国家
@@ -84,7 +84,6 @@ public class CaiJingBean {
 			 * thumbnail_pic_s02 : http://04.imgmini.eastday.com/mobile/20170902/20170902205026_df5465888835e1c1052f4c0059190cba_1_mwpm_03200403.jpg
 			 * thumbnail_pic_s03 : http://04.imgmini.eastday.com/mobile/20170902/20170902205026_df5465888835e1c1052f4c0059190cba_2_mwpm_03200403.jpg
 			 */
-
 
 
 			public String getUniquekey() {

@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/collect"
-        android:icon="@drawable/collect"
+        android:icon="@drawable/collect_selector"
         android:title="@string/collect"
         app:showAsAction="always"
         />

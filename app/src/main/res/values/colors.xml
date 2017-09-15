@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#079695</color>
-    <color name="colorPrimaryDark">#079695</color>
+    <color name="colorPrimary">#33dedd</color>
+    <color name="colorPrimaryDark">#33dedd</color>
     <color name="colorAccent">#FFFF6940</color>
     <color name="color_white">#FFFFFF</color>
     <color name="tab_bg_color">#FAFAFA</color>
@@ -13,4 +13,6 @@
     <color name="color_black">#000</color>
     <color name="line_color">#d5d5d5</color>
     <color name="detail_comment_btn_bg_color">#EEEEEE</color>
+    <color name="normal_txt_color">#222</color>
+
 </resources>
