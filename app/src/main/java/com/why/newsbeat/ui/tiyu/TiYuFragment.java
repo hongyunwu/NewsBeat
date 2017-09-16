@@ -46,6 +46,8 @@ public class TiYuFragment extends BaseFragment<TiYuViewHolder> {
 	}
 
 	private void loadData() {
+		isRefreshing = true;
+		viewHolder.swipe_refresh.setRefreshing(true);
 		NewsBeat.loadTiYuNews();
 	}
 
@@ -56,16 +58,32 @@ public class TiYuFragment extends BaseFragment<TiYuViewHolder> {
 	 */
 	@Subscribe
 	public void onLoadTiYuNews(TiYuNewsEvent tiYuNewsEvent){
-		tiYuViewAdapter = new TiYuViewAdapter(getContext(), tiYuNewsEvent.getEvent().getResult().getData());
-		tiYuViewAdapter.setOnItemClickListener(new TiYuViewAdapter.OnItemClickListener() {
-			@Override
-			public void onItemClick(int position, TiYuBean.ResultBean.DataBean dataBean) {
-				Bundle bundle = new Bundle();
-				bundle.putParcelable("news",dataBean);
-				gotoSubActivity(NewsDetailActivity.class,bundle,false);
+		if (tiYuNewsEvent.isAvailable()){
+			if (tiYuViewAdapter==null){
+				tiYuViewAdapter = new TiYuViewAdapter(getContext(), tiYuNewsEvent.getEvent().getResult().getData());
+				tiYuViewAdapter.setOnItemClickListener(new TiYuViewAdapter.OnItemClickListener() {
+					@Override
+					public void onItemClick(int position, TiYuBean.ResultBean.DataBean dataBean) {
+						Bundle bundle = new Bundle();
+						bundle.putParcelable("news",dataBean);
+						gotoSubActivity(NewsDetailActivity.class,bundle,false);
+					}
+				});
+				viewHolder.recycler_view.setAdapter(tiYuViewAdapter);
+			}else {
+
+				if (isRefreshing){
+					tiYuViewAdapter.setData(tiYuNewsEvent.getEvent().getResult().getData());
+				}else {
+					tiYuViewAdapter.addData(tiYuNewsEvent.getEvent().getResult().getData());
+				}
+
+				tiYuViewAdapter.notifyDataSetChanged();
 			}
-		});
-		viewHolder.recycler_view.setAdapter(tiYuViewAdapter);
+		}else {
+
+		}
+
 		isRefreshing = false;
 		viewHolder.swipe_refresh.setRefreshing(false);
 	}

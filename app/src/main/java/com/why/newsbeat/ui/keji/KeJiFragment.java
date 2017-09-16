@@ -45,6 +45,8 @@ public class KeJiFragment extends BaseFragment<KeJiViewHolder> {
 	}
 
 	private void loadData() {
+		isRefreshing = true;
+		viewHolder.swipe_refresh.setRefreshing(true);
 		NewsBeat.loadKeJiNews();
 	}
 
@@ -55,16 +57,32 @@ public class KeJiFragment extends BaseFragment<KeJiViewHolder> {
 	 */
 	@Subscribe
 	public void onLoadKeJiNews(KeJiNewsEvent keJiNewsEvent){
-		keJiViewAdapter = new KeJiViewAdapter(getContext(), keJiNewsEvent.getEvent().getResult().getData());
-		keJiViewAdapter.setOnItemClickListener(new KeJiViewAdapter.OnItemClickListener() {
-			@Override
-			public void onItemClick(int position, KeJiBean.ResultBean.DataBean dataBean) {
-				Bundle bundle = new Bundle();
-				bundle.putParcelable("news",dataBean);
-				gotoSubActivity(NewsDetailActivity.class,bundle,false);
+		if (keJiNewsEvent.isAvailable()){
+			if (keJiViewAdapter==null){
+				keJiViewAdapter = new KeJiViewAdapter(getContext(), keJiNewsEvent.getEvent().getResult().getData());
+				keJiViewAdapter.setOnItemClickListener(new KeJiViewAdapter.OnItemClickListener() {
+					@Override
+					public void onItemClick(int position, KeJiBean.ResultBean.DataBean dataBean) {
+						Bundle bundle = new Bundle();
+						bundle.putParcelable("news",dataBean);
+						gotoSubActivity(NewsDetailActivity.class,bundle,false);
+					}
+				});
+				viewHolder.recycler_view.setAdapter(keJiViewAdapter);
+			}else {
+				if (isRefreshing){
+					keJiViewAdapter.setData(keJiNewsEvent.getEvent().getResult().getData());
+				}else {
+					keJiViewAdapter.addData(keJiNewsEvent.getEvent().getResult().getData());
+				}
+
+				keJiViewAdapter.notifyDataSetChanged();
 			}
-		});
-		viewHolder.recycler_view.setAdapter(keJiViewAdapter);
+
+		}else {
+
+		}
+
 		isRefreshing = false;
 		viewHolder.swipe_refresh.setRefreshing(false);
 	}

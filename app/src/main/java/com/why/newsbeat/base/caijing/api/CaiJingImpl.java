@@ -41,6 +41,7 @@ public class CaiJingImpl extends BaseImpl<CaiJingService> implements CaiJingApi 
 					@Override
 					public void onError(Throwable e) {
 						LogUtils.i("onError:"+e.getMessage());
+						EventBus.getDefault().post(new CaiJingNewsEvent(null).setAvailable(false));
 					}
 				});
 	}

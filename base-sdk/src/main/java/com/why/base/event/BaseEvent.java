@@ -28,7 +28,17 @@ public class BaseEvent<E> {
      */
     public E mEvent;
 
-	/**
+    public boolean isAvailable() {
+
+        return mAvailable;
+    }
+
+    public BaseEvent setAvailable(boolean available) {
+        this.mAvailable = available;
+        return this;
+    }
+
+    /**
      * 事件的event是否可用
      */
     public boolean mAvailable;

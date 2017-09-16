@@ -41,6 +41,7 @@ public class GuoJiImpl extends BaseImpl<GuoJiService> implements GuoJiApi {
 					@Override
 					public void onError(Throwable e) {
 						LogUtils.i("onError:"+e.getMessage());
+						EventBus.getDefault().post(new GuoJiNewsEvent(null).setAvailable(false));
 					}
 				});
 	}

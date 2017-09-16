@@ -1,6 +1,7 @@
 package com.why.newsbeat.ui.guiji;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
+import com.why.newsbeat.base.collect.bean.Collect;
 import com.why.newsbeat.base.guoji.bean.GuoJiBean;
 
 import java.util.List;
@@ -28,6 +30,18 @@ public class GuoJiViewAdapter extends RecyclerView.Adapter<GuoJiItemViewHolder> 
 	public GuoJiViewAdapter(Context context, List<GuoJiBean.ResultBean.DataBean> data) {
 		this.mContext = context;
 		this.mData = data;
+	}
+
+	public void setData(@NonNull List<GuoJiBean.ResultBean.DataBean> data) {
+		this.mData = data;
+
+	}
+	public void addData(@NonNull List<GuoJiBean.ResultBean.DataBean> data){
+		if (mData==null){
+			mData = data;
+		}else {
+			mData.addAll(data);
+		}
 	}
 
 	@Override

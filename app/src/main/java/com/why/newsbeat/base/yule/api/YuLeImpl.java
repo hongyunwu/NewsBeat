@@ -41,6 +41,7 @@ public class YuLeImpl extends BaseImpl<YuLeService> implements YuLeApi {
 					@Override
 					public void onError(Throwable e) {
 						LogUtils.i("onError:"+e.getMessage());
+						EventBus.getDefault().post(new YuLeNewsEvent(null).setAvailable(false));
 					}
 				});
 	}

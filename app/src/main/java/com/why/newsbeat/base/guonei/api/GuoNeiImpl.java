@@ -41,6 +41,7 @@ public class GuoNeiImpl extends BaseImpl<GuoNeiService> implements GuoNeiApi {
 					@Override
 					public void onError(Throwable e) {
 						LogUtils.i("onError:"+e.getMessage());
+						EventBus.getDefault().post(new GuoNeiNewsEvent(null).setAvailable(false));
 					}
 				});
 	}

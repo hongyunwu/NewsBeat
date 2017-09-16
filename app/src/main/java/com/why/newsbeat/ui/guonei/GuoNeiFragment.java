@@ -45,6 +45,8 @@ public class GuoNeiFragment extends BaseFragment<GuoNeiViewHolder> {
 	}
 
 	private void loadData() {
+		isRefreshing = true;
+		viewHolder.swipe_refresh.setRefreshing(true);
 		NewsBeat.loadGuoNeiNews();
 	}
 
@@ -55,16 +57,33 @@ public class GuoNeiFragment extends BaseFragment<GuoNeiViewHolder> {
 	 */
 	@Subscribe
 	public void onLoadGuoNeiNews(GuoNeiNewsEvent guoNeiNewsEvent){
-		guoNeiViewAdapter = new GuoNeiViewAdapter(getContext(), guoNeiNewsEvent.getEvent().getResult().getData());
-		guoNeiViewAdapter.setOnItemClickListener(new GuoNeiViewAdapter.OnItemClickListener() {
-			@Override
-			public void onItemClick(int position, GuoNeiBean.ResultBean.DataBean dataBean) {
-				Bundle bundle = new Bundle();
-				bundle.putParcelable("news",dataBean);
-				gotoSubActivity(NewsDetailActivity.class,bundle,false);
+		if (guoNeiNewsEvent.isAvailable()){
+			if(guoNeiViewAdapter==null){
+				guoNeiViewAdapter = new GuoNeiViewAdapter(getContext(), guoNeiNewsEvent.getEvent().getResult().getData());
+				guoNeiViewAdapter.setOnItemClickListener(new GuoNeiViewAdapter.OnItemClickListener() {
+					@Override
+					public void onItemClick(int position, GuoNeiBean.ResultBean.DataBean dataBean) {
+						Bundle bundle = new Bundle();
+						bundle.putParcelable("news",dataBean);
+						gotoSubActivity(NewsDetailActivity.class,bundle,false);
+					}
+				});
+				viewHolder.recycler_view.setAdapter(guoNeiViewAdapter);
+
+			}else {
+				if (isRefreshing){
+					guoNeiViewAdapter.setData(guoNeiNewsEvent.getEvent().getResult().getData());
+				}else {
+					guoNeiViewAdapter.setData(guoNeiNewsEvent.getEvent().getResult().getData());
+				}
+				guoNeiViewAdapter.setData(guoNeiNewsEvent.getEvent().getResult().getData());
+				guoNeiViewAdapter.notifyDataSetChanged();
 			}
-		});
-		viewHolder.recycler_view.setAdapter(guoNeiViewAdapter);
+		}else {
+
+		}
+
+
 		isRefreshing = false;
 		viewHolder.swipe_refresh.setRefreshing(false);
 	}

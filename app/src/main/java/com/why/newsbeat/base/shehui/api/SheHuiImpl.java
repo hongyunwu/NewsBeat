@@ -41,6 +41,7 @@ public class SheHuiImpl extends BaseImpl<SheHuiService> implements SheHuiApi {
 					@Override
 					public void onError(Throwable e) {
 						LogUtils.i("onError:"+e.getMessage());
+						EventBus.getDefault().post(new SheHuiNewsEvent(null).setAvailable(false));
 					}
 				});
 	}

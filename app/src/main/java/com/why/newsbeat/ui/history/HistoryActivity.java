@@ -60,6 +60,8 @@ public class HistoryActivity extends BaseActivity<HistoryViewHolder> {
 	}
 
 	private void loadData() {
+		isRefreshing = true;
+		viewHolder.swipe_refresh.setRefreshing(true);
 		NewsBeat.loadHistories(20,0);
 	}
 
@@ -70,17 +72,30 @@ public class HistoryActivity extends BaseActivity<HistoryViewHolder> {
 	 */
 	@Subscribe
 	public void loadHistories(HistoryNewsEvent historyNewsEvent){
-
-		historyViewAdapter = new HistoryViewAdapter(this, historyNewsEvent.getEvent());
-		historyViewAdapter.setOnItemClickListener(new HistoryViewAdapter.OnItemClickListener() {
-			@Override
-			public void onItemClick(int position, History dataBean) {
-				Bundle bundle = new Bundle();
-				bundle.putParcelable("news",dataBean);
-				gotoSubActivity(NewsDetailActivity.class,bundle,false);
+		if (historyNewsEvent.isAvailable()){
+			if (historyViewAdapter==null){
+				historyViewAdapter = new HistoryViewAdapter(this, historyNewsEvent.getEvent());
+				historyViewAdapter.setOnItemClickListener(new HistoryViewAdapter.OnItemClickListener() {
+					@Override
+					public void onItemClick(int position, History dataBean) {
+						Bundle bundle = new Bundle();
+						bundle.putParcelable("news",dataBean);
+						gotoSubActivity(NewsDetailActivity.class,bundle,false);
+					}
+				});
+				viewHolder.recycler_view.setAdapter(historyViewAdapter);
+			}else {
+				if (isRefreshing){
+					historyViewAdapter.setData(historyNewsEvent.getEvent());
+				}else {
+					historyViewAdapter.addData(historyNewsEvent.getEvent());
+				}
+				historyViewAdapter.notifyDataSetChanged();
 			}
-		});
-		viewHolder.recycler_view.setAdapter(historyViewAdapter);
+		}else {
+
+		}
+
 		isRefreshing = false;
 		viewHolder.swipe_refresh.setRefreshing(false);
 	}

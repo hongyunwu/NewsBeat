@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.why.base.ui.BaseHolder;
 import com.why.newsbeat.R;
@@ -28,6 +30,12 @@ public class MainViewHolder extends BaseHolder {
 	TabLayout tab_bar;
 	@BindView(R.id.view_pager)
 	ViewPager view_pager;
+
+	ImageView weather_pic;
+	TextView wind;
+	TextView humidity;
+	TextView temp;
+
 	/**
 	 * 此处使用butterKnife进行了view绑定操作
 	 *

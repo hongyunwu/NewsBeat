@@ -1,6 +1,7 @@
 package com.why.newsbeat.ui.caijing;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -91,6 +92,19 @@ public class CaiJingViewAdapter extends RecyclerView.Adapter<CaiJingItemViewHold
 	}
 
 	private OnItemClickListener onItemClickListener;
+
+	public void setData(@NonNull List<CaiJingBean.ResultBean.DataBean> data) {
+		this.mData = data;
+
+	}
+	public void addData(@NonNull List<CaiJingBean.ResultBean.DataBean> data){
+		if (mData==null){
+			mData = data;
+		}else {
+			mData.addAll(data);
+		}
+	}
+
 	public interface OnItemClickListener{
 
 		void onItemClick(int position, CaiJingBean.ResultBean.DataBean dataBean);

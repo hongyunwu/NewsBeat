@@ -45,6 +45,8 @@ public class JunShiFragment extends BaseFragment<JunShiViewHolder> {
 	}
 
 	private void loadData() {
+		isRefreshing = true;
+		viewHolder.swipe_refresh.setRefreshing(true);
 		NewsBeat.loadJunShiNews();
 	}
 
@@ -55,16 +57,32 @@ public class JunShiFragment extends BaseFragment<JunShiViewHolder> {
 	 */
 	@Subscribe
 	public void onLoadJunShiNews(JunShiNewsEvent junShiNewsEvent){
-		junShiViewAdapter = new JunShiViewAdapter(getContext(), junShiNewsEvent.getEvent().getResult().getData());
-		junShiViewAdapter.setOnItemClickListener(new JunShiViewAdapter.OnItemClickListener() {
-			@Override
-			public void onItemClick(int position, JunShiBean.ResultBean.DataBean dataBean) {
-				Bundle bundle = new Bundle();
-				bundle.putParcelable("news",dataBean);
-				gotoSubActivity(NewsDetailActivity.class,bundle,false);
+		if (junShiNewsEvent.isAvailable()){
+
+			if(junShiViewAdapter==null){
+				junShiViewAdapter = new JunShiViewAdapter(getContext(), junShiNewsEvent.getEvent().getResult().getData());
+				junShiViewAdapter.setOnItemClickListener(new JunShiViewAdapter.OnItemClickListener() {
+					@Override
+					public void onItemClick(int position, JunShiBean.ResultBean.DataBean dataBean) {
+						Bundle bundle = new Bundle();
+						bundle.putParcelable("news",dataBean);
+						gotoSubActivity(NewsDetailActivity.class,bundle,false);
+					}
+				});
+				viewHolder.recycler_view.setAdapter(junShiViewAdapter);
+			}else {
+
+				if (isRefreshing){
+					junShiViewAdapter.setData(junShiNewsEvent.getEvent().getResult().getData());
+				}else {
+					junShiViewAdapter.addData(junShiNewsEvent.getEvent().getResult().getData());
+				}
+				junShiViewAdapter.notifyDataSetChanged();
 			}
-		});
-		viewHolder.recycler_view.setAdapter(junShiViewAdapter);
+		}else {
+
+		}
+
 		isRefreshing = false;
 		viewHolder.swipe_refresh.setRefreshing(false);
 	}

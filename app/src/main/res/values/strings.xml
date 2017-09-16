@@ -97,4 +97,7 @@
     <string name="content_pic_mode">图文模式</string>
     <string name="text_size_mode">字体大小</string>
     <string name="about_us">关于我们</string>
+    <string name="title_activity_settings2">Settings</string>
+    <string name="message_notification">消息通知</string>
+    <string name="set_text_size_mode">设置字体大小</string>
 </resources>

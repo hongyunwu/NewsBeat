@@ -1,6 +1,7 @@
 package com.why.newsbeat.ui.keji;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,7 +10,10 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
+import com.why.newsbeat.base.junshi.bean.JunShiBean;
 import com.why.newsbeat.base.keji.bean.KeJiBean;
+
+import org.greenrobot.greendao.annotation.NotNull;
 
 import java.util.List;
 
@@ -29,7 +33,18 @@ public class KeJiViewAdapter extends RecyclerView.Adapter<KeJiItemViewHolder> {
 		this.mContext = context;
 		this.mData = data;
 	}
+	public void setData(@NonNull List<KeJiBean.ResultBean.DataBean> data) {
+		this.mData = data;
 
+	}
+
+	public void addData(@NonNull List<KeJiBean.ResultBean.DataBean> data){
+		if (mData==null){
+			mData = data;
+		}else {
+			mData.addAll(data);
+		}
+	}
 	@Override
 	public int getItemViewType(int position) {
 		KeJiBean.ResultBean.DataBean dataBean = mData.get(position);

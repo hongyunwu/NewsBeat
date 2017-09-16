@@ -7,7 +7,7 @@
     </item>
     <item android:bottom="@dimen/line_height">
         <shape>
-            <solid android:color="@color/color_white"/>
+            <solid android:color="@color/colorPrimary"/>
         </shape>
     </item>
 

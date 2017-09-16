@@ -22,37 +22,31 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support:recyclerview-v7:25.3.0'
-
     /**
      * 用于生成findviewbyid
      */
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-
     /**
      * 注解-用于辅助代码可读性
      */
     compile 'com.android.support:support-annotations:25.3.0'
-
     /**
      * 日志打印类
      */
     compile 'com.orhanobut:logger:2.1.1'
-
     /**
      * 用于传递事件，处理事件
      */
     compile 'org.greenrobot:eventbus:3.0.0'
-
     /**
      * 用于内存泄露检测
      */
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2'
-
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
@@ -60,4 +54,5 @@ dependencies {
     compile 'io.reactivex:rxjava:1.3.0'
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+
 }

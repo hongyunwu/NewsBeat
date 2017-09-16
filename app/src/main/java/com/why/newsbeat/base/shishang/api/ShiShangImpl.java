@@ -41,6 +41,7 @@ public class ShiShangImpl extends BaseImpl<ShiShangService> implements ShiShangA
 					@Override
 					public void onError(Throwable e) {
 						LogUtils.i("onError:"+e.getMessage());
+						EventBus.getDefault().post(new ShiShangNewsEvent(null).setAvailable(false));
 					}
 				});
 	}

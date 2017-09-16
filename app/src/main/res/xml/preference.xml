@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Settings">
+    <SwitchPreference
+        android:key="message_notification"
+        android:title="@string/message_notification"
+        android:summaryOn="消息通知已打开"
+        android:summaryOff="已关闭消息通知功能"
+        android:defaultValue="true">
+    </SwitchPreference>
+
+    <CheckBoxPreference
+        android:key="content_pic_mode"
+        android:title="@string/content_pic_mode"
+        android:summaryOn="图文并茂"
+        android:summaryOff="仅加载文字内容"
+        android:defaultValue="true">
+    </CheckBoxPreference>
+    <ListPreference
+        android:dialogTitle="@string/set_text_size_mode"
+        android:defaultValue="@string/default_mode_text_size"
+        android:entries="@array/text_size_mode_entries"
+        android:entryValues="@array/text_size_mode_entryvalues"
+        android:key="text_size_mode"
+        android:title="@string/text_size_mode" >
+    </ListPreference>
+
+    <Preference
+        android:key="about_us"
+        android:title="@string/about_us"
+        />
+</PreferenceScreen>

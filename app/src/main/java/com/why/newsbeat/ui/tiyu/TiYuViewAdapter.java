@@ -1,6 +1,7 @@
 package com.why.newsbeat.ui.tiyu;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,7 +10,10 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
+import com.why.newsbeat.base.shishang.bean.ShiShangBean;
 import com.why.newsbeat.base.tiyu.bean.TiYuBean;
+
+import org.greenrobot.greendao.annotation.NotNull;
 
 import java.util.List;
 
@@ -30,6 +34,18 @@ public class TiYuViewAdapter extends RecyclerView.Adapter<TiYuItemViewHolder> {
 		this.mData = data;
 	}
 
+	public void setData(@NonNull List<TiYuBean.ResultBean.DataBean> data) {
+		this.mData = data;
+
+	}
+
+	public void addData(@NonNull List<TiYuBean.ResultBean.DataBean> data){
+		if (mData==null){
+			mData = data;
+		}else {
+			mData.addAll(data);
+		}
+	}
 	@Override
 	public int getItemViewType(int position) {
 		TiYuBean.ResultBean.DataBean dataBean = mData.get(position);

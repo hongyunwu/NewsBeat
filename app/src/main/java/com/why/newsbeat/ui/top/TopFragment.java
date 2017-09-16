@@ -46,6 +46,8 @@ public class TopFragment extends BaseFragment<TopViewHolder> {
 	}
 
 	private void loadData() {
+		isRefreshing = true;
+		viewHolder.swipe_refresh.setRefreshing(true);
 		NewsBeat.loadTopNews();
 	}
 
@@ -56,16 +58,34 @@ public class TopFragment extends BaseFragment<TopViewHolder> {
 	 */
 	@Subscribe
 	public void onLoadTopNews(TopNewsEvent topNewsEvent){
-		topViewAdapter = new TopViewAdapter(getContext(), topNewsEvent.getEvent().getResult().getData());
-		topViewAdapter.setOnItemClickListener(new TopViewAdapter.OnItemClickListener() {
-			@Override
-			public void onItemClick(int position, TopBean.ResultBean.DataBean dataBean) {
-				Bundle bundle = new Bundle();
-				bundle.putParcelable("news",dataBean);
-				gotoSubActivity(NewsDetailActivity.class,bundle,false);
+		if (topNewsEvent.isAvailable()){
+
+			if (topViewAdapter==null){
+				topViewAdapter = new TopViewAdapter(getContext(), topNewsEvent.getEvent().getResult().getData());
+				topViewAdapter.setOnItemClickListener(new TopViewAdapter.OnItemClickListener() {
+					@Override
+					public void onItemClick(int position, TopBean.ResultBean.DataBean dataBean) {
+						Bundle bundle = new Bundle();
+						bundle.putParcelable("news",dataBean);
+						gotoSubActivity(NewsDetailActivity.class,bundle,false);
+					}
+				});
+				viewHolder.recycler_view.setAdapter(topViewAdapter);
+			}else {
+
+				if (isRefreshing){
+					topViewAdapter.setData(topNewsEvent.getEvent().getResult().getData());
+				}else {
+					topViewAdapter.addData(topNewsEvent.getEvent().getResult().getData());
+				}
+
+				topViewAdapter.notifyDataSetChanged();
 			}
-		});
-		viewHolder.recycler_view.setAdapter(topViewAdapter);
+
+		}else {
+
+		}
+
 		isRefreshing = false;
 		viewHolder.swipe_refresh.setRefreshing(false);
 	}

@@ -1,6 +1,7 @@
 package com.why.newsbeat.ui.junshi;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
+import com.why.newsbeat.base.history.bean.History;
 import com.why.newsbeat.base.junshi.bean.JunShiBean;
 
 import java.util.List;
@@ -29,7 +31,18 @@ public class JunShiViewAdapter extends RecyclerView.Adapter<JunShiItemViewHolder
 		this.mContext = context;
 		this.mData = data;
 	}
+	public void setData(@NonNull List<JunShiBean.ResultBean.DataBean> data) {
+		this.mData = data;
 
+	}
+
+	public void addData(@NonNull List<JunShiBean.ResultBean.DataBean> data){
+		if (mData==null){
+			mData = data;
+		}else {
+			mData.addAll(data);
+		}
+	}
 	@Override
 	public int getItemViewType(int position) {
 		JunShiBean.ResultBean.DataBean dataBean = mData.get(position);

@@ -1,6 +1,9 @@
 package com.why.newsbeat.ui;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
@@ -9,10 +12,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.why.base.cache.AppCache;
+import com.why.base.cache.ImageCache;
 import com.why.base.ui.BaseActivity;
 import com.why.base.ui.BaseFragment;
 import com.why.base.utils.LogUtils;
@@ -44,7 +50,7 @@ public class MainActivity extends BaseActivity<MainViewHolder> implements Naviga
 
 
 	public String[] tabTitles = new String[]{
-			"头条","社会", "国内", "国际", "娱乐", "体育", "军事", "科技", "财经", "时尚"
+			"头条", "社会", "国内", "国际", "娱乐", "体育", "军事", "科技", "财经", "时尚"
 	};
 	private ArrayList<BaseFragment> mFragments = new ArrayList<>();
 
@@ -85,7 +91,7 @@ public class MainActivity extends BaseActivity<MainViewHolder> implements Naviga
 		mFragments.add(new KeJiFragment());
 		mFragments.add(new CaiJingFragment());
 		mFragments.add(new ShiShangFragment());
-		viewHolder.view_pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(),mFragments,tabTitles));
+		viewHolder.view_pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), mFragments, tabTitles));
 		viewHolder.tab_bar.setupWithViewPager(viewHolder.view_pager);
 
 	}
@@ -95,7 +101,7 @@ public class MainActivity extends BaseActivity<MainViewHolder> implements Naviga
 	 */
 	private void initDrawer() {
 		ActionBarDrawerToggle drawerToggle
-				= new ActionBarDrawerToggle(this, viewHolder.main_drawer, viewHolder.tool_bar, R.string.open_drawer, R.string.close_drawer){
+				= new ActionBarDrawerToggle(this, viewHolder.main_drawer, viewHolder.tool_bar, R.string.open_drawer, R.string.close_drawer) {
 			@Override
 			public void onDrawerClosed(View drawerView) {
 				super.onDrawerClosed(drawerView);
@@ -116,7 +122,7 @@ public class MainActivity extends BaseActivity<MainViewHolder> implements Naviga
 	 * 初始化侧滑菜单栏
 	 */
 	private void initNavigationView() {
-		NewsBeat.loadWeather();
+		NewsBeat.loadWeather("上海");
 		viewHolder.navigation_view.setItemIconTintList(null);
 		NavigationMenuView navigationMenuView = (NavigationMenuView) viewHolder.navigation_view.getChildAt(0);
 		if (navigationMenuView != null) {
@@ -124,6 +130,11 @@ public class MainActivity extends BaseActivity<MainViewHolder> implements Naviga
 			navigationMenuView.setOverScrollMode(ScrollView.OVER_SCROLL_NEVER);
 		}
 		viewHolder.navigation_view.setNavigationItemSelectedListener(this);
+		View headerView = viewHolder.navigation_view.getHeaderView(0);
+		viewHolder.temp = (TextView) headerView.findViewById(R.id.temp);
+		viewHolder.wind = (TextView) headerView.findViewById(R.id.wind);
+		viewHolder.humidity = (TextView) headerView.findViewById(R.id.humidity);
+		viewHolder.weather_pic = (ImageView) headerView.findViewById(R.id.weather_pic);
 	}
 
 	/**
@@ -142,7 +153,7 @@ public class MainActivity extends BaseActivity<MainViewHolder> implements Naviga
 		if (viewHolder.main_drawer.isDrawerOpen(Gravity.LEFT)) {
 
 			closeDrawer();
-		}else{
+		} else {
 			super.onBackPressed();
 		}
 
@@ -150,28 +161,58 @@ public class MainActivity extends BaseActivity<MainViewHolder> implements Naviga
 
 	/**
 	 * 当天气加载完成时的回调
+	 *
 	 * @param weatherEvent
 	 */
 	@Subscribe
-	public void onLoadWeather(WeatherEvent weatherEvent){
+	public void onLoadWeather(WeatherEvent weatherEvent) {
 
-		LogUtils.i(new Gson().toJson(weatherEvent.getEvent()));
+		viewHolder.temp.setText(weatherEvent.getEvent().getResult().getSk().getTemp() + "℃");
+		viewHolder.wind.setText(weatherEvent.getEvent().getResult().getSk().getWind_direction() + weatherEvent.getEvent().getResult().getSk().getWind_strength());
+		viewHolder.humidity.setText(weatherEvent.getEvent().getResult().getSk().getHumidity());
+		String weather = weatherEvent.getEvent().getResult().getToday().getWeather();
+		LogUtils.i("weather:" + weather);
+		int weatherId = R.drawable.weather_sun;
+		if (weather.contains("雨夹雪")) {
+			weatherId = R.drawable.weather_rain_and_snow;
+		} else if (weather.contains("雷阵雨")) {
+			weatherId = R.drawable.weather_thunder_rain;
+		} else if (weather.contains("霾")) {
+			weatherId = R.drawable.weather_hazes;
+		} else if (weather.contains("雾")) {
+			weatherId = R.drawable.weather_fog;
+		} else if (weather.contains("雪")) {
+			weatherId = R.drawable.weather_snow;
+		} else if (weather.contains("大雨")) {
+			weatherId = R.drawable.weather_large_rain;
+		} else if (weather.contains("雨")) {
+			weatherId = R.drawable.weather_rain;
+		} else if (weather.contains("中雨")) {
+			weatherId = R.drawable.weather_middle_rain;
+		} else if (weather.contains("云")) {
+			weatherId = R.drawable.weather_cloud;
+		}else if (weather.contains("晴")){
+			weatherId = R.drawable.weather_sun;
+		}
+		Bitmap weatherPic = ImageCache.getCache(weatherId);
+		viewHolder.weather_pic.setBackgroundDrawable(new BitmapDrawable(weatherPic));
 	}
 
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-		LogUtils.i("onNavigationItemSelected:"+item.getTitle());
-		switch (item.getItemId()){
+		LogUtils.i("onNavigationItemSelected:" + item.getTitle());
+		switch (item.getItemId()) {
 			case R.id.collections:
-				gotoSubActivity(CollectActivity.class,false);
+				gotoSubActivity(CollectActivity.class, false);
 				//closeDrawer();
 				break;
 			case R.id.settings:
-				gotoSubActivity(SettingsActivity.class,false);
+				//gotoSubActivity(SettingsActivity.class,false);
+				startActivity(new Intent(this, SettingsActivity.class));
 				break;
 			case R.id.history:
-				gotoSubActivity(HistoryActivity.class,false);
+				gotoSubActivity(HistoryActivity.class, false);
 				break;
 			case R.id.logout:
 				AppCache.exitApp();

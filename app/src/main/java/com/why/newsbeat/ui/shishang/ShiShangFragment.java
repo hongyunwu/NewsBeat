@@ -46,6 +46,8 @@ public class ShiShangFragment extends BaseFragment<ShiShangViewHolder> {
 	}
 
 	private void loadData() {
+		isRefreshing = true;
+		viewHolder.swipe_refresh.setRefreshing(true);
 		NewsBeat.loadShiShangNews();
 	}
 
@@ -56,16 +58,31 @@ public class ShiShangFragment extends BaseFragment<ShiShangViewHolder> {
 	 */
 	@Subscribe
 	public void onLoadShiShangNews(ShiShangNewsEvent shiShangNewsEvent){
-		shiShangViewAdapter = new ShiShangViewAdapter(getContext(), shiShangNewsEvent.getEvent().getResult().getData());
-		shiShangViewAdapter.setOnItemClickListener(new ShiShangViewAdapter.OnItemClickListener() {
-			@Override
-			public void onItemClick(int position, ShiShangBean.ResultBean.DataBean dataBean) {
-				Bundle bundle = new Bundle();
-				bundle.putParcelable("news",dataBean);
-				gotoSubActivity(NewsDetailActivity.class,bundle,false);
+		if (shiShangNewsEvent.isAvailable()){
+			if(shiShangViewAdapter==null){
+				shiShangViewAdapter = new ShiShangViewAdapter(getContext(), shiShangNewsEvent.getEvent().getResult().getData());
+				shiShangViewAdapter.setOnItemClickListener(new ShiShangViewAdapter.OnItemClickListener() {
+					@Override
+					public void onItemClick(int position, ShiShangBean.ResultBean.DataBean dataBean) {
+						Bundle bundle = new Bundle();
+						bundle.putParcelable("news",dataBean);
+						gotoSubActivity(NewsDetailActivity.class,bundle,false);
+					}
+				});
+				viewHolder.recycler_view.setAdapter(shiShangViewAdapter);
+			}else {
+				if (isRefreshing){
+					shiShangViewAdapter.setData(shiShangNewsEvent.getEvent().getResult().getData());
+				}else {
+					shiShangViewAdapter.addData(shiShangNewsEvent.getEvent().getResult().getData());
+				}
+
+				shiShangViewAdapter.notifyDataSetChanged();
 			}
-		});
-		viewHolder.recycler_view.setAdapter(shiShangViewAdapter);
+		}else {
+
+		}
+
 		isRefreshing = false;
 		viewHolder.swipe_refresh.setRefreshing(false);
 	}

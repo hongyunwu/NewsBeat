@@ -1,6 +1,7 @@
 package com.why.newsbeat.base;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.socialize.PlatformConfig;
@@ -282,8 +283,8 @@ public class NewsBeat{
 		return mWeatherImpl;
 	}
 
-	public static void loadWeather(){
-		getInstance().getWeatherImpl().loadWeather();
+	public static void loadWeather(@NonNull String cityName){
+		getInstance().getWeatherImpl().loadWeather(cityName);
 	}
 
 

@@ -75,7 +75,7 @@ public abstract class BaseActivity<T extends BaseHolder> extends AppCompatActivi
     /**
      * 负责处理新增的intent
      */
-    protected  void dealIntent(){};
+    protected  void dealIntent(){}
 
     /**
      * 通过反射调用构造方法来创建ViewHolder对象

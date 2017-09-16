@@ -41,6 +41,7 @@ public class JunShiImpl extends BaseImpl<JunShiService> implements JunShiApi {
 					@Override
 					public void onError(Throwable e) {
 						LogUtils.i("onError:"+e.getMessage());
+						EventBus.getDefault().post(new JunShiNewsEvent(null).setAvailable(false));
 					}
 				});
 	}

@@ -22,6 +22,14 @@ public class SettingsViewHolder extends BaseHolder {
 	TextView tool_bar_title;
 	@BindString(R.string.my_settings)
 	String my_settings;
+
+	String content_pic_mode ="content_pic_mode";
+
+	String text_size_mode = "text_size_mode";
+
+	String about_us = "about_us";
+
+	String message_notification = "message_notification";
 	/**
 	 * 此处使用butterKnife进行了view绑定操作
 	 *

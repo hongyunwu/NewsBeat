@@ -46,6 +46,8 @@ public class YuLeFragment extends BaseFragment<YuLeViewHolder> {
 	}
 
 	private void loadData() {
+		isRefreshing = true;
+		viewHolder.swipe_refresh.setRefreshing(true);
 		NewsBeat.loadYuLeNews();
 	}
 
@@ -56,16 +58,33 @@ public class YuLeFragment extends BaseFragment<YuLeViewHolder> {
 	 */
 	@Subscribe
 	public void onLoadYuLeNews(YuLeNewsEvent yuLeNewsEvent){
-		yuLeViewAdapter = new YuLeViewAdapter(getContext(), yuLeNewsEvent.getEvent().getResult().getData());
-		yuLeViewAdapter.setOnItemClickListener(new YuLeViewAdapter.OnItemClickListener() {
-			@Override
-			public void onItemClick(int position, YuLeBean.ResultBean.DataBean dataBean) {
-				Bundle bundle = new Bundle();
-				bundle.putParcelable("news",dataBean);
-				gotoSubActivity(NewsDetailActivity.class,bundle,false);
+		if (yuLeNewsEvent.isAvailable()){
+			if (yuLeViewAdapter==null){
+				yuLeViewAdapter = new YuLeViewAdapter(getContext(), yuLeNewsEvent.getEvent().getResult().getData());
+				yuLeViewAdapter.setOnItemClickListener(new YuLeViewAdapter.OnItemClickListener() {
+					@Override
+					public void onItemClick(int position, YuLeBean.ResultBean.DataBean dataBean) {
+						Bundle bundle = new Bundle();
+						bundle.putParcelable("news",dataBean);
+						gotoSubActivity(NewsDetailActivity.class,bundle,false);
+					}
+				});
+				viewHolder.recycler_view.setAdapter(yuLeViewAdapter);
+			}else {
+				//需要判断是否是刷新
+				if (isRefreshing){
+					yuLeViewAdapter.setData(yuLeNewsEvent.getEvent().getResult().getData());
+				}else {
+					yuLeViewAdapter.addData(yuLeNewsEvent.getEvent().getResult().getData());
+				}
+
+				yuLeViewAdapter.notifyDataSetChanged();
 			}
-		});
-		viewHolder.recycler_view.setAdapter(yuLeViewAdapter);
+		}else {
+			//判断adapter是否为空，如果不为空，那么之前有数据
+
+		}
+
 		isRefreshing = false;
 		viewHolder.swipe_refresh.setRefreshing(false);
 	}

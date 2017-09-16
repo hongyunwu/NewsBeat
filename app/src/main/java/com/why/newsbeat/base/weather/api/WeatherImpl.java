@@ -22,9 +22,9 @@ public class WeatherImpl extends BaseImpl<WeatherService> implements WeatherApi{
 
 
 	@Override
-	public void loadWeather() {
+	public void loadWeather(String cityName) {
 
-		mService.getWeather("上海", NetUrl.WEATHER_API_KEY)
+		mService.getWeather(cityName, NetUrl.WEATHER_API_KEY)
 				.subscribeOn(Schedulers.newThread())//新线程调用，
 				.observeOn(AndroidSchedulers.mainThread())//主线程回调
 				.subscribe(new Observer<WeatherBean>() {
@@ -36,6 +36,7 @@ public class WeatherImpl extends BaseImpl<WeatherService> implements WeatherApi{
 					@Override
 					public void onError(Throwable e) {
 						LogUtils.i("onError:"+e.getMessage());
+						EventBus.getDefault().post(new WeatherEvent(null).setAvailable(false));
 					}
 
 					@Override

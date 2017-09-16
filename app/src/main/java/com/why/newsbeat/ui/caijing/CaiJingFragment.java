@@ -31,12 +31,12 @@ public class CaiJingFragment extends BaseFragment<CaiJingViewHolder> {
 	public void initData() {
 
 		viewHolder.swipe_refresh.setColorSchemeResources(R.color.colorPrimary);
-		viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-		viewHolder.recycler_view.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+		viewHolder.recycler_view.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+		viewHolder.recycler_view.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 		viewHolder.swipe_refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
-				if (!isRefreshing){
+				if (!isRefreshing) {
 					isRefreshing = true;
 					loadData();
 				}
@@ -46,6 +46,8 @@ public class CaiJingFragment extends BaseFragment<CaiJingViewHolder> {
 	}
 
 	private void loadData() {
+		isRefreshing = true;
+		viewHolder.swipe_refresh.setRefreshing(true);
 		NewsBeat.loadCaiJingNews();
 	}
 
@@ -55,18 +57,34 @@ public class CaiJingFragment extends BaseFragment<CaiJingViewHolder> {
 	 * @param caiJingNewsEvent
 	 */
 	@Subscribe
-	public void onLoadCaiJingNews(CaiJingNewsEvent caiJingNewsEvent){
-		caiJingViewAdapter = new CaiJingViewAdapter(getContext(), caiJingNewsEvent.getEvent().getResult().getData());
-		caiJingViewAdapter.setOnItemClickListener(new CaiJingViewAdapter.OnItemClickListener() {
-			@Override
-			public void onItemClick(int position, CaiJingBean.ResultBean.DataBean dataBean) {
-				Bundle bundle = new Bundle();
-				bundle.putParcelable("news",dataBean);
-				gotoSubActivity(NewsDetailActivity.class,bundle,false);
-			}
-		});
+	public void onLoadCaiJingNews(CaiJingNewsEvent caiJingNewsEvent) {
+		if (caiJingNewsEvent.isAvailable()) {
+			if (caiJingViewAdapter == null) {
+				caiJingViewAdapter = new CaiJingViewAdapter(getContext(), caiJingNewsEvent.getEvent().getResult().getData());
+				caiJingViewAdapter.setOnItemClickListener(new CaiJingViewAdapter.OnItemClickListener() {
+					@Override
+					public void onItemClick(int position, CaiJingBean.ResultBean.DataBean dataBean) {
+						Bundle bundle = new Bundle();
+						bundle.putParcelable("news", dataBean);
+						gotoSubActivity(NewsDetailActivity.class, bundle, false);
+					}
+				});
 
-		viewHolder.recycler_view.setAdapter(caiJingViewAdapter);
+				viewHolder.recycler_view.setAdapter(caiJingViewAdapter);
+			}else {
+				if (isRefreshing){
+					caiJingViewAdapter.setData(caiJingNewsEvent.getEvent().getResult().getData());
+				}else {
+					caiJingViewAdapter.addData(caiJingNewsEvent.getEvent().getResult().getData());
+				}
+
+				caiJingViewAdapter.notifyDataSetChanged();
+			}
+
+		} else {
+
+		}
+
 		isRefreshing = false;
 		viewHolder.swipe_refresh.setRefreshing(false);
 	}

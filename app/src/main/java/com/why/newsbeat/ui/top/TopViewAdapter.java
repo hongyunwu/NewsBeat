@@ -1,6 +1,7 @@
 package com.why.newsbeat.ui.top;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,8 +10,11 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
+import com.why.newsbeat.base.tiyu.bean.TiYuBean;
 import com.why.newsbeat.base.top.bean.TopBean;
 import com.why.newsbeat.ui.top.TopItemViewHolder;
+
+import org.greenrobot.greendao.annotation.NotNull;
 
 import java.util.List;
 
@@ -30,7 +34,17 @@ public class TopViewAdapter extends RecyclerView.Adapter<TopItemViewHolder> {
 		this.mContext = context;
 		this.mData = data;
 	}
+	public void setData(@NonNull List<TopBean.ResultBean.DataBean> data) {
+		this.mData = data;
 
+	}
+	public void addData(@NonNull List<TopBean.ResultBean.DataBean> data){
+		if (mData==null){
+			mData = data;
+		}else {
+			mData.addAll(data);
+		}
+	}
 	@Override
 	public int getItemViewType(int position) {
 		TopBean.ResultBean.DataBean dataBean = mData.get(position);

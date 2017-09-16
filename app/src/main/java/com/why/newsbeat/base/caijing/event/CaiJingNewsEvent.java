@@ -9,7 +9,12 @@ import com.why.newsbeat.base.caijing.bean.CaiJingBean;
 
 public class CaiJingNewsEvent extends BaseEvent<CaiJingBean> {
 
+
 	public CaiJingNewsEvent(CaiJingBean mEvent) {
 		super(mEvent);
+	}
+
+	public CaiJingNewsEvent(CaiJingBean mEvent, boolean mAvailable) {
+		super(mEvent, mAvailable);
 	}
 }

@@ -1,6 +1,7 @@
 package com.why.newsbeat.ui.history;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
+import com.why.newsbeat.base.guonei.bean.GuoNeiBean;
 import com.why.newsbeat.base.history.bean.History;
 
 import java.util.List;
@@ -28,6 +30,17 @@ public class HistoryViewAdapter extends RecyclerView.Adapter<HistoryItemViewHold
 	public HistoryViewAdapter(Context context, List<History> data) {
 		this.mContext = context;
 		this.mData = data;
+	}
+	public void setData(@NonNull List<History> data) {
+		this.mData = data;
+
+	}
+	public void addData(@NonNull List<History> data){
+		if (mData==null){
+			mData = data;
+		}else {
+			mData.addAll(data);
+		}
 	}
 
 	@Override

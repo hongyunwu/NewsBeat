@@ -41,6 +41,7 @@ public class KeJiImpl extends BaseImpl<KeJiService> implements KeJiApi {
 					@Override
 					public void onError(Throwable e) {
 						LogUtils.i("onError:"+e.getMessage());
+						EventBus.getDefault().post(new KeJiNewsEvent(null).setAvailable(false));
 					}
 				});
 	}

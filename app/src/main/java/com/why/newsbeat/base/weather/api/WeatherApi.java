@@ -9,6 +9,7 @@ public interface WeatherApi {
 	/**
 	 * 加载天气数据
 	 *
+	 * @param cityName 当前城市
 	 */
-	void loadWeather();
+	void loadWeather(String cityName);
 }

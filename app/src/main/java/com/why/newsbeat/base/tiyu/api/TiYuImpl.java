@@ -41,6 +41,7 @@ public class TiYuImpl extends BaseImpl<TiYuService> implements TiYuApi {
 					@Override
 					public void onError(Throwable e) {
 						LogUtils.i("onError:"+e.getMessage());
+						EventBus.getDefault().post(new TiYuNewsEvent(null).setAvailable(false));
 					}
 				});
 	}

@@ -59,6 +59,8 @@ public class CollectActivity extends BaseActivity<CollectViewHolder> {
 	}
 
 	private void loadData() {
+		isRefreshing = true;
+		viewHolder.swipe_refresh.setRefreshing(true);
 		NewsBeat.loadCollections(20,0);
 	}
 
@@ -69,17 +71,32 @@ public class CollectActivity extends BaseActivity<CollectViewHolder> {
 	 */
 	@Subscribe
 	public void loadCollections(CollectNewsEvent collectNewsEvent){
+		if (collectNewsEvent.isAvailable()){
+			if (collectViewAdapter==null){
+				collectViewAdapter = new CollectViewAdapter(this, collectNewsEvent.getEvent());
+				collectViewAdapter.setOnItemClickListener(new CollectViewAdapter.OnItemClickListener() {
+					@Override
+					public void onItemClick(int position, Collect dataBean) {
+						Bundle bundle = new Bundle();
+						bundle.putParcelable("news",dataBean);
+						gotoSubActivity(NewsDetailActivity.class,bundle,false);
+					}
+				});
+				viewHolder.recycler_view.setAdapter(collectViewAdapter);
+			}else{
 
-		collectViewAdapter = new CollectViewAdapter(this, collectNewsEvent.getEvent());
-		collectViewAdapter.setOnItemClickListener(new CollectViewAdapter.OnItemClickListener() {
-			@Override
-			public void onItemClick(int position, Collect dataBean) {
-				Bundle bundle = new Bundle();
-				bundle.putParcelable("news",dataBean);
-				gotoSubActivity(NewsDetailActivity.class,bundle,false);
+				if (isRefreshing){
+					collectViewAdapter.setData(collectNewsEvent.getEvent());
+				}else {
+					collectViewAdapter.addData(collectNewsEvent.getEvent());
+				}
+
+				collectViewAdapter.notifyDataSetChanged();
 			}
-		});
-		viewHolder.recycler_view.setAdapter(collectViewAdapter);
+		}else{
+
+		}
+
 		isRefreshing = false;
 		viewHolder.swipe_refresh.setRefreshing(false);
 	}

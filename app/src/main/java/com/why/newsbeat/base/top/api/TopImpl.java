@@ -41,6 +41,7 @@ public class TopImpl extends BaseImpl<TopService> implements TopApi {
 					@Override
 					public void onError(Throwable e) {
 						LogUtils.i("onError:"+e.getMessage());
+						EventBus.getDefault().post(new TopNewsEvent(null).setAvailable(false));
 					}
 				});
 	}
