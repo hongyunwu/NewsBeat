@@ -13,7 +13,7 @@
         android:layout_marginBottom="@dimen/page_vertical"
         android:layout_marginLeft="@dimen/page_horizontal"
         android:text="西北风1级"
-        android:textColor="@color/normal_txt_color"
+        android:textColor="@color/color_white"
         android:textSize="@dimen/tab_text_size"/>
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_marginLeft="@dimen/content_pic_margin"
         android:layout_toRightOf="@id/wind"
         android:text="湿度71%"
-        android:textColor="@color/normal_txt_color"
+        android:textColor="@color/color_white"
         android:textSize="@dimen/tab_text_size"/>
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_alignLeft="@id/wind"
         android:layout_marginBottom="@dimen/page_horizontal"
         android:text="上海市"
-        android:textColor="@color/normal_txt_color"
+        android:textColor="@color/color_white"
         android:textSize="@dimen/tab_text_size"/>
 
     <LinearLayout
@@ -59,7 +59,7 @@
             android:text="30℃"
             android:layout_marginLeft="@dimen/content_pic_margin"
             android:layout_gravity="center_vertical"
-            android:textColor="@color/normal_txt_color"
+            android:textColor="@color/color_white"
             android:textSize="@dimen/weather_temp_size"
 
             />

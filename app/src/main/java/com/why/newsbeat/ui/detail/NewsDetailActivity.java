@@ -16,10 +16,10 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.why.base.ui.BaseActivity;
 import com.why.base.utils.LogUtils;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.NewsBeat;
-import com.why.newsbeat.base.detail.DetailApi;
-import com.why.newsbeat.base.collect.bean.Collect;
-import com.why.newsbeat.base.history.bean.History;
+import com.why.newsbeat.service.NewsBeat;
+import com.why.newsbeat.service.detail.DetailApi;
+import com.why.newsbeat.service.collect.bean.Collect;
+import com.why.newsbeat.service.history.bean.History;
 import com.why.newsbeat.dao.manager.DBManager;
 import com.why.newsbeat.ui.detail.comments.CommentsFragment;
 

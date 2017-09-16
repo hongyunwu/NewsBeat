@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.collect.bean.Collect;
-import com.why.newsbeat.base.guoji.bean.GuoJiBean;
+import com.why.newsbeat.service.guoji.bean.GuoJiBean;
 
 import java.util.List;
 
@@ -67,11 +66,21 @@ public class GuoJiViewAdapter extends RecyclerView.Adapter<GuoJiItemViewHolder> 
 			@Override
 			public void onClick(View v) {
 				int position = guoJiItemViewHolder.getAdapterPosition();
-				if (onItemClickListener!=null){
-					onItemClickListener.onItemClick(position,mData.get(position));
+
+				switch (v.getId()){
+					case R.id.item_top_news:
+						if (onItemClickListener!=null){
+							onItemClickListener.onItemClick(position,mData.get(position));
+						}
+						break;
+					case R.id.delete:
+						mData.remove(position);
+						notifyItemRemoved(position);
+						break;
 				}
+
 			}
-		},guoJiItemViewHolder.item_top_news);
+		},guoJiItemViewHolder.item_top_news,guoJiItemViewHolder.delete);
 
 		return guoJiItemViewHolder;
 	}

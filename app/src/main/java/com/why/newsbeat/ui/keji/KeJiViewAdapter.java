@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.junshi.bean.JunShiBean;
-import com.why.newsbeat.base.keji.bean.KeJiBean;
-
-import org.greenrobot.greendao.annotation.NotNull;
+import com.why.newsbeat.service.keji.bean.KeJiBean;
 
 import java.util.List;
 
@@ -68,11 +65,20 @@ public class KeJiViewAdapter extends RecyclerView.Adapter<KeJiItemViewHolder> {
 			@Override
 			public void onClick(View v) {
 				int position = keJiItemViewHolder.getAdapterPosition();
-				if (onItemClickListener!=null){
-					onItemClickListener.onItemClick(position,mData.get(position));
+				switch (v.getId()){
+					case R.id.item_top_news:
+						if (onItemClickListener!=null){
+							onItemClickListener.onItemClick(position,mData.get(position));
+						}
+						break;
+					case R.id.delete:
+						mData.remove(position);
+						notifyItemRemoved(position);
+						break;
 				}
+
 			}
-		},keJiItemViewHolder.item_top_news);
+		},keJiItemViewHolder.item_top_news,keJiItemViewHolder.delete);
 		return keJiItemViewHolder;
 	}
 

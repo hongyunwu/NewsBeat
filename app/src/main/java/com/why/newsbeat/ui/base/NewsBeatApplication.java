@@ -1,11 +1,7 @@
 package com.why.newsbeat.ui.base;
 
-import com.tencent.bugly.crashreport.CrashReport;
 import com.why.base.BaseApplication;
-import com.why.newsbeat.base.NewsBeat;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import com.why.newsbeat.service.NewsBeat;
 
 /**
  * Created by lenovo on 2017/9/3.

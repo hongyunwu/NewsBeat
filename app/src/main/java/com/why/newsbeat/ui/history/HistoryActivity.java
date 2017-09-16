@@ -8,10 +8,9 @@ import android.view.MenuItem;
 
 import com.why.base.ui.BaseActivity;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.NewsBeat;
-import com.why.newsbeat.base.collect.event.CollectNewsEvent;
-import com.why.newsbeat.base.history.bean.History;
-import com.why.newsbeat.base.history.event.HistoryNewsEvent;
+import com.why.newsbeat.service.NewsBeat;
+import com.why.newsbeat.service.history.bean.History;
+import com.why.newsbeat.service.history.event.HistoryNewsEvent;
 import com.why.newsbeat.ui.detail.NewsDetailActivity;
 
 import org.greenrobot.eventbus.Subscribe;

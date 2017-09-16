@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.shishang.bean.ShiShangBean;
-import com.why.newsbeat.base.tiyu.bean.TiYuBean;
-
-import org.greenrobot.greendao.annotation.NotNull;
+import com.why.newsbeat.service.tiyu.bean.TiYuBean;
 
 import java.util.List;
 
@@ -69,11 +66,21 @@ public class TiYuViewAdapter extends RecyclerView.Adapter<TiYuItemViewHolder> {
 			@Override
 			public void onClick(View v) {
 				int position = tiYuItemViewHolder.getAdapterPosition();
-				if (onItemClickListener!=null){
-					onItemClickListener.onItemClick(position,mData.get(position));
+
+				switch (v.getId()){
+					case R.id.item_top_news:
+						if (onItemClickListener!=null){
+							onItemClickListener.onItemClick(position,mData.get(position));
+						}
+						break;
+					case R.id.delete:
+						mData.remove(position);
+						notifyItemRemoved(position);
+						break;
 				}
+
 			}
-		},tiYuItemViewHolder.item_top_news);
+		},tiYuItemViewHolder.item_top_news,tiYuItemViewHolder.item_top_news);
 
 		return tiYuItemViewHolder;
 	}

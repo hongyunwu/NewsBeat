@@ -4,8 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.why.base.utils.LogUtils;
-import com.why.newsbeat.base.collect.bean.Collect;
-import com.why.newsbeat.base.history.bean.History;
+import com.why.newsbeat.service.collect.bean.Collect;
+import com.why.newsbeat.service.history.bean.History;
 import com.why.newsbeat.dao.greendao.CollectDao;
 import com.why.newsbeat.dao.greendao.DaoMaster;
 import com.why.newsbeat.dao.greendao.DaoSession;
@@ -163,6 +163,29 @@ public class DBManager {
         }else{
             historyDao.delete(historyList.get(0));
             historyDao.insert(history);
+        }
+    }
+
+    /**
+     * 删除足迹
+     *
+     * @param context
+     * @param history
+     */
+    public static void delete(Context context, History history) {
+        HistoryDao historyDao = getDaoSession(context)
+                .getHistoryDao();
+
+        List<History> list = historyDao
+                .queryBuilder()
+                .where(HistoryDao.Properties.Uniquekey.eq(history.getUniquekey())
+                        , HistoryDao.Properties.Username.eq(history.getUsername()))
+                .build()//先确定数据库 当前用户是否有当前收藏
+                .list();
+        if (list.size()>0){
+            History deleteBean = list.get(0);
+            LogUtils.i("delete:"+deleteBean.getTitle()+",size:"+list.size());
+            historyDao.delete(deleteBean);
         }
     }
 

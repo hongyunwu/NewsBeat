@@ -25,7 +25,8 @@ public class KeJiItemViewHolder extends BaseHolder {
 	TextView author;
 	@BindView(R.id.thumb_01)
 	ImageView thumb_01;
-
+	@BindView(R.id.delete)
+	ImageView delete;
 	ImageView thumb_02;
 	ImageView thumb_03;
 	/**

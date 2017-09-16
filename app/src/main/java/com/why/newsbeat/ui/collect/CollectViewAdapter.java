@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.caijing.bean.CaiJingBean;
-import com.why.newsbeat.base.collect.bean.Collect;
+import com.why.newsbeat.dao.manager.DBManager;
+import com.why.newsbeat.service.collect.bean.Collect;
 
 import java.util.List;
 
@@ -56,12 +56,22 @@ public class CollectViewAdapter extends RecyclerView.Adapter<CollectItemViewHold
 			public void onClick(View v) {
 				int position = topItemViewHolder.getAdapterPosition();
 				//点击的位置
-				if (onItemClickListener!=null){
-					onItemClickListener.onItemClick(position,mData.get(position));
+				switch (v.getId()){
+					case R.id.item_top_news:
+						if (onItemClickListener!=null){
+							onItemClickListener.onItemClick(position,mData.get(position));
+						}
+						break;
+					case R.id.delete:
+						Collect collect = mData.remove(position);
+						notifyItemRemoved(position);
+						DBManager.delete(mContext,collect);
+						break;
 				}
 
+
 			}
-		},topItemViewHolder.item_top_news);
+		},topItemViewHolder.item_top_news,topItemViewHolder.delete);
 
 		return topItemViewHolder;
 	}

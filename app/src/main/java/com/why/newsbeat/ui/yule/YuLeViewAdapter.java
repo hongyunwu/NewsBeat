@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.top.bean.TopBean;
-import com.why.newsbeat.base.yule.bean.YuLeBean;
+import com.why.newsbeat.service.yule.bean.YuLeBean;
 
 import java.util.List;
 
@@ -66,11 +65,20 @@ public class YuLeViewAdapter extends RecyclerView.Adapter<YuLeItemViewHolder> {
 			@Override
 			public void onClick(View v) {
 				int position = yuLeItemViewHolder.getAdapterPosition();
-				if (onItemClickListener!=null){
-					onItemClickListener.onItemClick(position,mData.get(position));
+				switch (v.getId()){
+					case R.id.item_top_news:
+						if (onItemClickListener!=null){
+							onItemClickListener.onItemClick(position,mData.get(position));
+						}
+						break;
+					case R.id.delete:
+						mData.remove(position);
+						notifyItemRemoved(position);
+						break;
 				}
+
 			}
-		},yuLeItemViewHolder.item_top_news);
+		},yuLeItemViewHolder.item_top_news,yuLeItemViewHolder.delete);
 
 		return yuLeItemViewHolder;
 	}

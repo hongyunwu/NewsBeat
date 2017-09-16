@@ -25,8 +25,11 @@ public class CaiJingItemViewHolder extends BaseHolder {
 	@BindView(R.id.thumb_01)
 	ImageView thumb_01;
 
+	@BindView(R.id.delete)
+	ImageView delete;
 	ImageView thumb_02;
 	ImageView thumb_03;
+
 	/**
 	 * 此处使用butterKnife进行了view绑定操作
 	 *

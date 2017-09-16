@@ -102,6 +102,7 @@ public class ImageCache {
      * @return
      */
     public static Bitmap getCache(@DrawableRes int key){
+        LogUtils.i("key:"+key);
         return getInstance().get(key);
     }
     private Bitmap get(@DrawableRes int  key){

@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.keji.bean.KeJiBean;
-import com.why.newsbeat.base.shehui.bean.SheHuiBean;
+import com.why.newsbeat.service.shehui.bean.SheHuiBean;
 
 import java.util.List;
 
@@ -66,11 +65,20 @@ public class SheHuiViewAdapter extends RecyclerView.Adapter<SheHuiItemViewHolder
 			@Override
 			public void onClick(View v) {
 				int position = sheHuiItemViewHolder.getAdapterPosition();
-				if (onItemClickListener!=null){
-					onItemClickListener.onItemClick(position,mData.get(position));
+				switch (v.getId()){
+					case R.id.item_top_news:
+						if (onItemClickListener!=null){
+							onItemClickListener.onItemClick(position,mData.get(position));
+						}
+						break;
+					case R.id.delete:
+						mData.remove(position);
+						notifyItemRemoved(position);
+						break;
 				}
+
 			}
-		},sheHuiItemViewHolder.item_top_news);
+		},sheHuiItemViewHolder.item_top_news,sheHuiItemViewHolder.delete);
 
 		return sheHuiItemViewHolder;
 	}

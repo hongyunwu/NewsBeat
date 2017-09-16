@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.guonei.bean.GuoNeiBean;
-import com.why.newsbeat.base.history.bean.History;
+import com.why.newsbeat.dao.manager.DBManager;
+import com.why.newsbeat.service.history.bean.History;
 
 import java.util.List;
 
@@ -67,12 +67,23 @@ public class HistoryViewAdapter extends RecyclerView.Adapter<HistoryItemViewHold
 			public void onClick(View v) {
 				int position = topItemViewHolder.getAdapterPosition();
 				//点击的位置
-				if (onItemClickListener!=null){
-					onItemClickListener.onItemClick(position,mData.get(position));
+
+				switch (v.getId()){
+					case R.id.item_top_news:
+						if (onItemClickListener!=null){
+							onItemClickListener.onItemClick(position,mData.get(position));
+						}
+						break;
+					case R.id.delete:
+						History history = mData.remove(position);
+						notifyItemRemoved(position);
+						DBManager.delete(mContext,history);
+						break;
 				}
 
+
 			}
-		},topItemViewHolder.item_top_news);
+		},topItemViewHolder.item_top_news,topItemViewHolder.delete);
 
 		return topItemViewHolder;
 	}

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.caijing.bean.CaiJingBean;
+import com.why.newsbeat.service.caijing.bean.CaiJingBean;
 
 import java.util.List;
 
@@ -54,11 +54,21 @@ public class CaiJingViewAdapter extends RecyclerView.Adapter<CaiJingItemViewHold
 			@Override
 			public void onClick(View v) {
 				int position = caiJingItemViewHolder.getAdapterPosition();
-				if (onItemClickListener!=null){
-					onItemClickListener.onItemClick(position,mData.get(position));
+				switch (v.getId()){
+					case R.id.item_top_news:
+						if (onItemClickListener!=null){
+							onItemClickListener.onItemClick(position,mData.get(position));
+						}
+						break;
+					case R.id.delete:
+						mData.remove(position);
+						notifyItemRemoved(position);
+						break;
 				}
+
+
 			}
-		},caiJingItemViewHolder.item_top_news);
+		},caiJingItemViewHolder.item_top_news,caiJingItemViewHolder.delete);
 		return caiJingItemViewHolder;
 	}
 

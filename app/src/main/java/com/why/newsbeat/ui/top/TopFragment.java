@@ -7,9 +7,9 @@ import android.support.v7.widget.DividerItemDecoration;
 
 import com.why.base.ui.BaseFragment;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.NewsBeat;
-import com.why.newsbeat.base.top.bean.TopBean;
-import com.why.newsbeat.base.top.event.TopNewsEvent;
+import com.why.newsbeat.service.NewsBeat;
+import com.why.newsbeat.service.top.bean.TopBean;
+import com.why.newsbeat.service.top.event.TopNewsEvent;
 import com.why.newsbeat.ui.detail.NewsDetailActivity;
 
 import org.greenrobot.eventbus.Subscribe;

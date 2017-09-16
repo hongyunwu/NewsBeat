@@ -7,9 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.why.base.ui.BaseFragment;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.NewsBeat;
-import com.why.newsbeat.base.guoji.bean.GuoJiBean;
-import com.why.newsbeat.base.guoji.event.GuoJiNewsEvent;
+import com.why.newsbeat.service.NewsBeat;
+import com.why.newsbeat.service.guoji.bean.GuoJiBean;
+import com.why.newsbeat.service.guoji.event.GuoJiNewsEvent;
 import com.why.newsbeat.ui.detail.NewsDetailActivity;
 
 import org.greenrobot.eventbus.Subscribe;

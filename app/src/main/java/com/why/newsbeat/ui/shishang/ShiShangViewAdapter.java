@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.shehui.bean.SheHuiBean;
-import com.why.newsbeat.base.shishang.bean.ShiShangBean;
+import com.why.newsbeat.service.shishang.bean.ShiShangBean;
 
 import java.util.List;
 
@@ -66,11 +65,20 @@ public class ShiShangViewAdapter extends RecyclerView.Adapter<ShiShangItemViewHo
 			@Override
 			public void onClick(View v) {
 				int position = shiShangItemViewHolder.getAdapterPosition();
-				if (onItemClickListener!=null){
-					onItemClickListener.onItemClick(position,mData.get(position));
+				switch (v.getId()){
+					case R.id.item_top_news:
+						if (onItemClickListener!=null){
+							onItemClickListener.onItemClick(position,mData.get(position));
+						}
+						break;
+					case R.id.delete:
+						mData.remove(position);
+						notifyItemRemoved(position);
+						break;
 				}
+
 			}
-		},shiShangItemViewHolder.item_top_news);
+		},shiShangItemViewHolder.item_top_news,shiShangItemViewHolder.delete);
 
 		return shiShangItemViewHolder;
 	}

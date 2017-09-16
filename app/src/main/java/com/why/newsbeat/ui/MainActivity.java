@@ -16,14 +16,13 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.why.base.cache.AppCache;
 import com.why.base.cache.ImageCache;
 import com.why.base.ui.BaseActivity;
 import com.why.base.ui.BaseFragment;
 import com.why.base.utils.LogUtils;
-import com.why.newsbeat.base.NewsBeat;
-import com.why.newsbeat.base.weather.event.WeatherEvent;
+import com.why.newsbeat.service.NewsBeat;
+import com.why.newsbeat.service.weather.event.WeatherEvent;
 import com.why.newsbeat.ui.caijing.CaiJingFragment;
 import com.why.newsbeat.ui.collect.CollectActivity;
 import com.why.newsbeat.ui.guiji.GuoJiFragment;
@@ -185,14 +184,19 @@ public class MainActivity extends BaseActivity<MainViewHolder> implements Naviga
 			weatherId = R.drawable.weather_snow;
 		} else if (weather.contains("大雨")) {
 			weatherId = R.drawable.weather_large_rain;
-		} else if (weather.contains("雨")) {
-			weatherId = R.drawable.weather_rain;
 		} else if (weather.contains("中雨")) {
 			weatherId = R.drawable.weather_middle_rain;
+		} else if (weather.contains("雨")) {
+			weatherId = R.drawable.weather_rain;
 		} else if (weather.contains("云")) {
 			weatherId = R.drawable.weather_cloud;
 		}else if (weather.contains("晴")){
-			weatherId = R.drawable.weather_sun;
+			if (weatherEvent.getEvent().getResult().getSk().getTime().startsWith("18")){
+				weatherId = R.drawable.weather_moon;
+			}else{
+				weatherId = R.drawable.weather_sun;
+			}
+
 		}
 		Bitmap weatherPic = ImageCache.getCache(weatherId);
 		viewHolder.weather_pic.setBackgroundDrawable(new BitmapDrawable(weatherPic));

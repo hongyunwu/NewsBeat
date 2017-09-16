@@ -7,9 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 
 import com.why.base.ui.BaseFragment;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.NewsBeat;
-import com.why.newsbeat.base.yule.bean.YuLeBean;
-import com.why.newsbeat.base.yule.event.YuLeNewsEvent;
+import com.why.newsbeat.service.NewsBeat;
+import com.why.newsbeat.service.yule.bean.YuLeBean;
+import com.why.newsbeat.service.yule.event.YuLeNewsEvent;
 import com.why.newsbeat.ui.detail.NewsDetailActivity;
 
 import org.greenrobot.eventbus.Subscribe;

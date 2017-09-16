@@ -8,8 +8,8 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
-import com.why.newsbeat.base.collect.bean.Collect;
-import com.why.newsbeat.base.history.bean.History;
+import com.why.newsbeat.service.collect.bean.Collect;
+import com.why.newsbeat.service.history.bean.History;
 
 import com.why.newsbeat.dao.greendao.CollectDao;
 import com.why.newsbeat.dao.greendao.HistoryDao;

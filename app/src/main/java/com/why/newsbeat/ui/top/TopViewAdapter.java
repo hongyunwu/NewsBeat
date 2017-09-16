@@ -10,11 +10,7 @@ import android.view.ViewGroup;
 
 import com.why.newsbeat.GlideApp;
 import com.why.newsbeat.R;
-import com.why.newsbeat.base.tiyu.bean.TiYuBean;
-import com.why.newsbeat.base.top.bean.TopBean;
-import com.why.newsbeat.ui.top.TopItemViewHolder;
-
-import org.greenrobot.greendao.annotation.NotNull;
+import com.why.newsbeat.service.top.bean.TopBean;
 
 import java.util.List;
 
@@ -69,12 +65,21 @@ public class TopViewAdapter extends RecyclerView.Adapter<TopItemViewHolder> {
 			public void onClick(View v) {
 				int position = topItemViewHolder.getAdapterPosition();
 				//点击的位置
-				if (onItemClickListener!=null){
-					onItemClickListener.onItemClick(position,mData.get(position));
+				switch (v.getId()){
+					case R.id.item_top_news:
+						if (onItemClickListener!=null){
+							onItemClickListener.onItemClick(position,mData.get(position));
+						}
+						break;
+					case R.id.delete:
+						mData.remove(position);
+						notifyItemRemoved(position);
+						break;
 				}
 
+
 			}
-		},topItemViewHolder.item_top_news);
+		},topItemViewHolder.item_top_news,topItemViewHolder.delete);
 
 		return topItemViewHolder;
 	}
