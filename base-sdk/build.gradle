@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
 
     defaultConfig {
         minSdkVersion 14
@@ -45,8 +44,8 @@ dependencies {
     /**
      * 用于内存泄露检测
      */
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2'
+    //debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
+    compile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
