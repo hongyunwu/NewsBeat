@@ -2,11 +2,15 @@ package com.why.base.cache;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.ComponentCallbacks;
+import android.content.ComponentCallbacks2;
 import android.content.Context;
+import android.content.res.Configuration;
 
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.why.base.executor.ThreadManager;
+import com.why.base.utils.LogUtils;
 import com.why.base.utils.PreferenceUtils;
 
 import java.util.ArrayList;
@@ -20,6 +24,25 @@ public class AppCache {
     private Application mApplication;
     private RefWatcher mRefWatcher;
     private ActicityLifeCycle mActicityLifeCycle;
+    private ComponentCallbacks mComponentCallback = new ComponentCallbacks2() {
+        @Override
+        public void onTrimMemory(int level) {
+            LogUtils.w("onTrimMemory->"+level);
+            if (level==ComponentCallbacks2.TRIM_MEMORY_COMPLETE ||level==ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL){
+                ImageCache.recycleMemoryCache();
+            }
+        }
+
+        @Override
+        public void onConfigurationChanged(Configuration configuration) {
+
+        }
+
+        @Override
+        public void onLowMemory() {
+            LogUtils.w("onLowMemory");
+        }
+    };
 
     /**
      * 私有化构造函数
@@ -56,7 +79,7 @@ public class AppCache {
         initLeakCanary(application);//内存泄露检查
         mActicityLifeCycle = new ActicityLifeCycle(this);
         application.registerActivityLifecycleCallbacks(mActicityLifeCycle);//用于内存检测
-
+        application.registerComponentCallbacks(mComponentCallback);
     }
 
     /**
@@ -117,6 +140,7 @@ public class AppCache {
         activities.clear();
         if (mApplication!=null){
             mApplication.unregisterActivityLifecycleCallbacks(mActicityLifeCycle);
+            mApplication.unregisterComponentCallbacks(mComponentCallback);
         }
 
         android.os.Process.killProcess(android.os.Process.myPid());

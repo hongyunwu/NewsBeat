@@ -135,4 +135,18 @@ public class ImageCache {
         mMemoryCache.put(key,bitmap);
     }
 
+
+
+    public static void recycleMemoryCache(){
+        LruCache<Integer, Bitmap> memoryCache = getInstance().mMemoryCache;
+        if (memoryCache.size()>0){
+            for (int i = 0; i < memoryCache.size(); i++) {
+                Bitmap bitmap = memoryCache.get(i);
+                if(bitmap!=null&&!bitmap.isRecycled()){
+                    bitmap.recycle();
+                }
+            }
+        }
+    }
+
 }
